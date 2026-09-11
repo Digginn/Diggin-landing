@@ -137,11 +137,9 @@ export default function Home() {
             <div className='flex flex-col items-center gap-6'>
               <div className='relative w-[120px] h-[80px]'>
                 <div
-                  className='absolute rounded-[6px] bg-gradient-to-b from-[rgba(255,255,255,0.68)] to-[#848484] border-[0.5px] border-[rgba(255,255,255,0.32)]'
+                  className='folder-panel-glow absolute rounded-[6px] bg-gradient-to-b from-[rgba(255,255,255,0.68)] to-[#848484] border-[0.5px] border-[rgba(255,255,255,0.32)]'
                   style={{
                     inset: '0 8px',
-                    boxShadow:
-                      '8px -10px 28px 0 rgba(6,51,255,0.5), -4px -4px 12px 0 rgba(225,255,0,0.5), 0 8px 24px 0 rgba(255,56,60,0.5)',
                   }}
                 />
                 <div className='absolute inset-x-0 bottom-0' style={{ top: '25%' }}>
