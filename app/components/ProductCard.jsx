@@ -11,7 +11,7 @@ export default function ProductCard({
   action,
   actionLeft,
   actionTop,
-  actionSize = 20,
+  actionSize,
   imageBox,
   crop,
   sourceSize,
@@ -27,6 +27,7 @@ export default function ProductCard({
   const imageHeight = imageBox?.height ?? cardHeight - padding * 2
   const imageLeft = imageBox?.x ?? (cardWidth - imageWidth) / 2
   const imageTop = imageBox?.y ?? (cardHeight - imageHeight) / 2
+  const resolvedActionSize = actionSize ?? Math.round(Math.min(cardWidth, cardHeight) * 0.26)
 
   return (
     <div
@@ -76,11 +77,11 @@ export default function ProductCard({
           style={{
             left: actionLeft,
             top: actionTop,
-            width: actionSize,
-            height: actionSize,
+            width: resolvedActionSize,
+            height: resolvedActionSize,
           }}
         >
-          <Image src={icon} alt='' fill sizes={`${actionSize}px`} />
+          <Image src={icon} alt='' fill sizes={`${resolvedActionSize}px`} />
         </span>
       ) : null}
     </div>
