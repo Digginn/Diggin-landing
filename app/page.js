@@ -22,6 +22,8 @@ function getPhoneError(value) {
   return ''
 }
 
+const AGREEMENT_ERROR = '개인정보 이용 동의가 필요해요.'
+
 function getResponsiveMode() {
   if (typeof window === 'undefined') return { inputSize: 's' }
   if (window.innerWidth >= 1280) return { inputSize: 'l' }
@@ -259,9 +261,12 @@ export default function Home() {
   const [phone, setPhone] = useState('')
   const [phoneError, setPhoneError] = useState('')
   const [agreed, setAgreed] = useState(false)
+  const [agreementError, setAgreementError] = useState('')
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const [responsiveMode, setResponsiveMode] = useState({ inputSize: 's' })
+  const isPhoneReady = getPhoneError(phone) === ''
+  const canSubmit = isPhoneReady && agreed
 
   useEffect(() => {
     const updateMode = () => setResponsiveMode(getResponsiveMode())
@@ -274,14 +279,35 @@ export default function Home() {
 
   const handlePhoneChange = (next) => {
     setPhone(next)
-    if (hasTriedSubmit) setPhoneError(getPhoneError(next))
+    const err = getPhoneError(next)
+    if (hasTriedSubmit) setPhoneError(err)
+    setAgreementError(!err && hasTriedSubmit && !agreed ? AGREEMENT_ERROR : '')
+  }
+
+  const handlePhoneBlur = () => {
+    const err = getPhoneError(phone)
+    setHasTriedSubmit(true)
+    setPhoneError(err)
+    setAgreementError(!err && !agreed ? AGREEMENT_ERROR : '')
+  }
+
+  const handleAgreementToggle = () => {
+    const next = !agreed
+    setAgreed(next)
+    setAgreementError(!next && isPhoneReady ? AGREEMENT_ERROR : '')
+  }
+
+  const handleAgreementBlur = () => {
+    setAgreementError(!agreed && isPhoneReady ? AGREEMENT_ERROR : '')
   }
 
   const handleSubmit = () => {
     setHasTriedSubmit(true)
     const err = getPhoneError(phone)
     setPhoneError(err)
+    setAgreementError(!err && !agreed ? AGREEMENT_ERROR : '')
     if (err) return
+    if (!agreed) return
     console.log('제출:', phone)
   }
 
@@ -388,14 +414,22 @@ export default function Home() {
                 value={phone}
                 onChange={handlePhoneChange}
                 onSubmit={handleSubmit}
+                onBlur={handlePhoneBlur}
                 error={phoneError}
+                disabled={!canSubmit}
                 placeholder='010-XXXX-XXXX.digging'
               />
+              {agreementError ? (
+                <p className='w-[324px] px-5 text-[12px] font-medium leading-[1.3] tracking-[0.24px] text-[#ff383c] min-[744px]:w-[486px] min-[744px]:px-[30px] min-[744px]:text-[18px] min-[744px]:tracking-[0.36px] min-[1280px]:w-[648px] min-[1280px]:px-10 min-[1280px]:text-[24px] min-[1280px]:tracking-[0.48px]'>
+                  {agreementError}
+                </p>
+              ) : null}
               <div className='flex w-[355px] items-center gap-0.5 min-[744px]:w-[532.5px] min-[744px]:gap-[3px] min-[1280px]:w-[710px] min-[1280px]:gap-1'>
                 <button
                   type='button'
-                  onClick={() => setAgreed(!agreed)}
-                  className='flex size-12 shrink-0 items-center justify-center min-[744px]:size-[72px] min-[1280px]:size-24'
+                  onBlur={handleAgreementBlur}
+                  onClick={handleAgreementToggle}
+                  className='flex size-12 shrink-0 cursor-pointer items-center justify-center min-[744px]:size-[72px] min-[1280px]:size-24'
                 >
                   <Image
                     src={agreed ? '/icons/live_area-3.svg' : '/icons/live_area-7.svg'}
@@ -416,13 +450,18 @@ export default function Home() {
                     }
                   />
                 </button>
-                <p className='text-b3 text-gray-300 whitespace-nowrap min-[744px]:text-[24px] min-[744px]:tracking-[-0.48px] min-[1280px]:text-[32px] min-[1280px]:tracking-[-0.64px]'>
+                <button
+                  type='button'
+                  onBlur={handleAgreementBlur}
+                  onClick={handleAgreementToggle}
+                  className='text-b3 cursor-pointer whitespace-nowrap text-gray-300 min-[744px]:text-[24px] min-[744px]:tracking-[-0.48px] min-[1280px]:text-[32px] min-[1280px]:tracking-[-0.64px]'
+                >
                   개인정보 이용 동의하고 출시 알림 받기
-                </p>
+                </button>
                 <button
                   type='button'
                   onClick={() => setIsPrivacyModalOpen(true)}
-                  className='flex size-12 shrink-0 items-center justify-center min-[744px]:size-[72px] min-[1280px]:size-24'
+                  className='flex size-12 shrink-0 cursor-pointer items-center justify-center min-[744px]:size-[72px] min-[1280px]:size-24'
                 >
                   <span className='text-[16px] font-medium leading-[1.5] tracking-[-0.32px] text-gray-500 underline min-[744px]:text-[24px] min-[744px]:tracking-[-0.48px] min-[1280px]:text-[32px] min-[1280px]:tracking-[-0.64px]'>
                     자세히
@@ -531,7 +570,10 @@ export default function Home() {
       <PrivacyAgreementModal
         open={isPrivacyModalOpen}
         onClose={() => setIsPrivacyModalOpen(false)}
-        onAgree={() => setAgreed(true)}
+        onAgree={() => {
+          setAgreed(true)
+          setAgreementError('')
+        }}
       />
     </main>
   )

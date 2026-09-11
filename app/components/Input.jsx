@@ -12,6 +12,7 @@ const SIZE = {
     innerPl: 12,
     innerPr: 8,
     fontSize: 18,
+    errorFontSize: 12,
     arrowSize: 44,
     iconSize: 37,
   },
@@ -23,6 +24,7 @@ const SIZE = {
     innerPl: 18,
     innerPr: 12,
     fontSize: 27,
+    errorFontSize: 18,
     arrowSize: 66,
     iconSize: 55,
   },
@@ -34,6 +36,7 @@ const SIZE = {
     innerPl: 24,
     innerPr: 16,
     fontSize: 36,
+    errorFontSize: 24,
     arrowSize: 88,
     iconSize: 73,
   },
@@ -46,7 +49,15 @@ function formatPhone(raw) {
   return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`
 }
 
-export default function Input({ size = 's', value = '', onChange, onSubmit, error, ...inputProps }) {
+export default function Input({
+  size = 's',
+  value = '',
+  onChange,
+  onSubmit,
+  error,
+  disabled = false,
+  ...inputProps
+}) {
   const {
     id,
     className = '',
@@ -66,6 +77,7 @@ export default function Input({ size = 's', value = '', onChange, onSubmit, erro
   const errorId = `${inputId}-error`
   const describedBy = [ariaDescribedBy, error ? errorId : null].filter(Boolean).join(' ') || undefined
   const hasValue = inputValue.length > 0
+  const canSubmit = hasValue && !disabled
 
   const borderColor = error
     ? '#ff383c'
@@ -76,7 +88,7 @@ export default function Input({ size = 's', value = '', onChange, onSubmit, erro
   const handleKeyDown = (e) => {
     onKeyDown?.(e)
 
-    if (e.key === 'Enter' && !e.defaultPrevented) {
+    if (e.key === 'Enter' && !e.defaultPrevented && canSubmit) {
       onSubmit?.(e)
     }
   }
@@ -129,18 +141,19 @@ export default function Input({ size = 's', value = '', onChange, onSubmit, erro
           />
           <button
             type='button'
-            onClick={(e) => hasValue && onSubmit?.(e)}
+            disabled={!canSubmit}
+            onClick={(e) => canSubmit && onSubmit?.(e)}
             style={{
               width: cfg.arrowSize,
               height: cfg.arrowSize,
               flexShrink: 0,
-              cursor: hasValue ? 'pointer' : 'default',
+              cursor: canSubmit ? 'pointer' : 'default',
             }}
             className='flex items-center justify-center'
             aria-label='제출'
           >
             <Image
-              src={hasValue ? '/icons/arrow-circle-black.svg' : '/icons/arrow-circle-gray.svg'}
+              src={canSubmit ? '/icons/arrow-circle-black.svg' : '/icons/arrow-circle-gray.svg'}
               alt=''
               width={cfg.iconSize}
               height={cfg.iconSize}
@@ -154,7 +167,7 @@ export default function Input({ size = 's', value = '', onChange, onSubmit, erro
           style={{
             paddingLeft: cfg.outerPl + cfg.innerPl,
             marginTop: 8,
-            fontSize: 12,
+            fontSize: cfg.errorFontSize,
             fontWeight: 500,
             lineHeight: 1.3,
             letterSpacing: '0.24px',
