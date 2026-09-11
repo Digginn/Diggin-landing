@@ -5,6 +5,39 @@ import LaunchNotificationForm from '@/app/components/LaunchNotificationForm'
 import LightFolderSection from '@/app/components/LightFolderSection'
 import SurveySection from '@/app/components/SurveySection'
 
+const DESKTOP_TOP_PLUS_MARKERS = [
+  { left: 362, top: 351.672 },
+  { left: 553.777, top: 252 },
+  { left: 695.125, top: 379.142 },
+  { left: 1178.73, top: 397.059 },
+  { left: 869.199, top: 343.591 },
+  { left: 1044.8, top: 319.904 },
+]
+
+function DesktopTopPlusMarker({ left, top }) {
+  return (
+    <span
+      aria-hidden='true'
+      className='pointer-events-none absolute z-10 hidden min-[1280px]:block'
+      style={{
+        left,
+        top,
+        width: 46,
+        height: 46,
+        transform: 'translate(-50%, -50%)',
+      }}
+    >
+      <Image
+        src='/icons/live_area-6.svg'
+        alt=''
+        width={46}
+        height={46}
+        className='block h-full w-full'
+      />
+    </span>
+  )
+}
+
 export default function Home() {
   return (
     <main className='min-h-screen overflow-x-hidden bg-gray-900 font-sans'>
@@ -35,6 +68,9 @@ export default function Home() {
               priority
               className='hidden min-[1280px]:block'
             />
+            {DESKTOP_TOP_PLUS_MARKERS.map(({ left, top }) => (
+              <DesktopTopPlusMarker key={`${left}-${top}`} left={left} top={top} />
+            ))}
           </div>
         </div>
 
