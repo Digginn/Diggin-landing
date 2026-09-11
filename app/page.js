@@ -197,15 +197,17 @@ export default function Home() {
                 <p>여기에 모입니다.</p>
               </div>
             </div>
-            <div
-              className='flex gap-2 overflow-x-auto -mx-8 px-8 w-screen'
-              style={{ scrollbarWidth: 'none' }}
-            >
-              {BRANDS.map((b, i) => (
-                <div key={i} className='relative size-12 rounded-[8px] shrink-0 overflow-hidden'>
-                  <Image src={b.src} alt={b.alt} fill sizes='48px' className='object-cover' />
-                </div>
-              ))}
+            <div className='brand-loop -mx-8 w-[calc(100%+64px)] overflow-hidden'>
+              <div className='brand-loop-track flex w-max gap-2 px-8'>
+                {[...BRANDS, ...BRANDS].map((b, i) => (
+                  <div
+                    key={`${b.alt}-${i}`}
+                    className='relative size-12 shrink-0 overflow-hidden rounded-[8px]'
+                  >
+                    <Image src={b.src} alt={b.alt} fill sizes='48px' className='object-cover' />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

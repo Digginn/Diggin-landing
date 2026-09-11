@@ -54,6 +54,35 @@ body {
   }
 }
 
+.brand-loop {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0 calc(50% - 188px),
+    rgba(0, 0, 0, 0.4) calc(50% - 156px),
+    #000 calc(50% - 104px) calc(50% + 104px),
+    rgba(0, 0, 0, 0.4) calc(50% + 156px),
+    rgba(0, 0, 0, 0.3) calc(50% + 188px) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0 calc(50% - 188px),
+    rgba(0, 0, 0, 0.4) calc(50% - 156px),
+    #000 calc(50% - 104px) calc(50% + 104px),
+    rgba(0, 0, 0, 0.4) calc(50% + 156px),
+    rgba(0, 0, 0, 0.3) calc(50% + 188px) 100%
+  );
+}
+
+.brand-loop-track {
+  animation: brand-loop-scroll 28s linear infinite;
+}
+
+@keyframes brand-loop-scroll {
+  to {
+    transform: translate3d(-672px, 0, 0);
+  }
+}
+
 @layer utilities {
   /* Heading */
   .text-h1 {
