@@ -17,43 +17,46 @@ function getPhoneError(value) {
 function LightFolderSection() {
   return (
     <section className='relative h-[1232px] overflow-hidden bg-gray-900'>
-      <div className='absolute inset-x-0 top-0 z-20 h-[1080px]'>
-        {PRISM_PRODUCTS.map((item, index) => (
-          <ProductCard key={index} {...item} />
-        ))}
-      </div>
-
-      <div className='absolute inset-x-0 top-[255px] z-30 text-center text-b1 text-white'>
-        <p>발견한 순간</p>
-        <p>저장하고,</p>
-      </div>
-
-      <div className='absolute inset-x-0 top-[671px] z-30 text-center'>
-        <p className='mb-0.5 text-b2 text-gray-50 drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)]'>
-          필요할 때 바로 다시 찾는
-        </p>
-        <p className='text-b1 text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)]'>
-          새로운 쇼핑 경험.
-        </p>
-      </div>
-
       <div className='pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[268px] bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent' />
-      <div className='absolute left-[87px] top-[916px] z-40 h-[156px] w-[202px]'>
-        <div className='absolute -left-10 -top-16 h-[172px] w-[282px] rounded-full bg-white/20 blur-[36px]' />
-        <Image
-          src='/images/folder/folder_m_btm.svg'
-          alt=''
-          fill
-          sizes='202px'
-          className='object-contain'
-        />
-        <Image
-          src='/images/folder/folder_m_open.svg'
-          alt=''
-          width={230}
-          height={117}
-          className='absolute left-[-16px] top-[40px] max-w-none'
-        />
+
+      <div className='relative mx-auto h-full w-[375px]'>
+        <div className='absolute inset-x-0 top-0 z-20 h-[1080px]'>
+          {PRISM_PRODUCTS.map((item, index) => (
+            <ProductCard key={index} {...item} />
+          ))}
+        </div>
+
+        <div className='absolute inset-x-0 top-[255px] z-30 text-center text-b1 text-white'>
+          <p>발견한 순간</p>
+          <p>저장하고,</p>
+        </div>
+
+        <div className='absolute inset-x-0 top-[671px] z-30 text-center'>
+          <p className='mb-0.5 text-b2 text-gray-50 drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)]'>
+            필요할 때 바로 다시 찾는
+          </p>
+          <p className='text-b1 text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)]'>
+            새로운 쇼핑 경험.
+          </p>
+        </div>
+
+        <div className='absolute left-[87px] top-[916px] z-40 h-[156px] w-[202px]'>
+          <div className='absolute -left-10 -top-16 h-[172px] w-[282px] rounded-full bg-white/20 blur-[36px]' />
+          <Image
+            src='/images/folder/folder_m_btm.svg'
+            alt=''
+            fill
+            sizes='202px'
+            className='object-contain'
+          />
+          <Image
+            src='/images/folder/folder_m_open.svg'
+            alt=''
+            width={230}
+            height={117}
+            className='absolute left-[-16px] top-[40px] max-w-none'
+          />
+        </div>
       </div>
     </section>
   )
@@ -98,7 +101,7 @@ export default function Home() {
 
   return (
     <main className='bg-gray-100 min-h-screen font-sans'>
-      <div className='mx-auto min-h-screen max-w-[375px] overflow-hidden bg-gray-900'>
+      <div className='mx-auto min-h-screen w-full max-w-[743px] overflow-hidden bg-gray-900'>
         {/* ── 상단 아이템 이미지 ── */}
         <div className='relative h-[244px] overflow-hidden'>
           <div className='absolute left-1/2 -translate-x-1/2 w-[442px] h-[300px] -top-8'>
