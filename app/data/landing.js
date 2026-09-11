@@ -87,7 +87,6 @@ export const PRISM_PRODUCTS = [
     top: 324,
     size: 96,
     imageBox: { x: 18.41, y: 11.293, width: 59.18, height: 73.414 },
-    crop: { left: '-348.86%', top: '-151.8%', width: '581.82%', height: '251.8%' },
   },
   {
     src: '/images/items/item-denim-bag.png',
