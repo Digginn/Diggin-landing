@@ -22,8 +22,9 @@
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-gray-0);
+  background-color: var(--color-gray-900);
   color: var(--color-gray-900);
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -60,6 +61,7 @@ body {
   z-index: 10;
   overflow: visible;
   pointer-events: none;
+  transform: translateY(-30px);
 }
 
 .prism-svg {
@@ -86,6 +88,22 @@ body {
   width: 375px;
   height: 1154px;
   transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.12) 90px,
+    rgba(0, 0, 0, 0.42) 250px,
+    #000 430px,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.12) 90px,
+    rgba(0, 0, 0, 0.42) 250px,
+    #000 430px,
+    #000 100%
+  );
 }
 
 .prism-side-light-soft-blur {
@@ -119,6 +137,22 @@ body {
   width: 522.315px;
   height: 1533.4px;
   filter: blur(10px);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.08) 220px,
+    rgba(0, 0, 0, 0.52) 520px,
+    #000 760px,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0) 220px,
+    rgba(0, 0, 0, 0.52) 520px,
+    #000 760px,
+    #000 100%
+  );
 }
 
 .prism-rectangle-64 {
@@ -127,16 +161,22 @@ body {
   left: calc(50% - 226px);
   width: 452px;
   height: 1525px;
-}
-
-.prism-top-fade {
-  position: absolute;
-  top: -909px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 375px;
-  height: 1174px;
-  background: linear-gradient(180deg, #1e1e1e 54.472%, rgba(30, 30, 30, 0) 100%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.08) 220px,
+    rgba(0, 0, 0, 0.52) 520px,
+    #000 760px,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.08) 220px,
+    rgba(0, 0, 0, 0.52) 520px,
+    #000 760px,
+    #000 100%
+  );
 }
 
 .brand-loop {

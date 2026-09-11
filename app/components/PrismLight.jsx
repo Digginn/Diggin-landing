@@ -203,7 +203,6 @@ export default function PrismLight() {
       <PrismSideLayer idPrefix='prism-side-soft-blur' className='prism-side-light-soft-blur' />
       <PrismSideLayer idPrefix='prism-side-strong-blur' className='prism-side-light-strong-blur' />
       <PrismMainLayers idPrefix='prism-main' />
-      <div className='prism-top-fade' />
     </div>
   )
 }

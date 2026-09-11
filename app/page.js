@@ -17,7 +17,7 @@ function getPhoneError(value) {
 
 function LightFolderSection() {
   return (
-    <section className='relative z-10 h-[1232px] overflow-hidden bg-gray-900'>
+    <section className='relative z-10 h-[1232px] overflow-visible bg-gray-900'>
       <div className='pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[268px] bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent' />
 
       <div className='relative mx-auto h-full w-[375px]'>
@@ -102,7 +102,7 @@ export default function Home() {
   )
 
   return (
-    <main className='bg-gray-100 min-h-screen font-sans'>
+    <main className='min-h-screen overflow-x-hidden bg-gray-900 font-sans'>
       <div className='mx-auto min-h-screen w-full max-w-[743px] overflow-visible bg-gray-900'>
         {/* ── 상단 아이템 이미지 ── */}
         <div className='relative h-[244px] overflow-hidden'>
@@ -119,7 +119,7 @@ export default function Home() {
         </div>
 
         {/* ── 메인 콘텐츠 ── */}
-        <div className='relative z-30 flex flex-col items-center gap-20 bg-gray-900 px-8 pb-[129px]'>
+        <div className='relative z-30 flex flex-col items-center gap-20 px-8 pb-[129px]'>
           {/* 헤드라인 */}
           <div className='flex flex-col items-center gap-[26px] text-center pt-[26px]'>
             <div className='flex flex-col items-center'>
