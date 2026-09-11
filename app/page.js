@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Input from '@/app/components/Input'
 import ProductCard from '@/app/components/ProductCard'
 import PrismLight from '@/app/components/PrismLight'
+import PrivacyAgreementModal from '@/app/components/PrivacyAgreementModal'
 import {
   ACTION_BUTTONS,
   BRANDS,
@@ -259,6 +260,7 @@ export default function Home() {
   const [phoneError, setPhoneError] = useState('')
   const [agreed, setAgreed] = useState(false)
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const [responsiveMode, setResponsiveMode] = useState({ inputSize: 's' })
 
   useEffect(() => {
@@ -419,6 +421,7 @@ export default function Home() {
                 </p>
                 <button
                   type='button'
+                  onClick={() => setIsPrivacyModalOpen(true)}
                   className='flex size-12 shrink-0 items-center justify-center min-[744px]:size-[72px] min-[1280px]:size-24'
                 >
                   <span className='text-[16px] font-medium leading-[1.5] tracking-[-0.32px] text-gray-500 underline min-[744px]:text-[24px] min-[744px]:tracking-[-0.48px] min-[1280px]:text-[32px] min-[1280px]:tracking-[-0.64px]'>
@@ -525,6 +528,11 @@ export default function Home() {
           </div>
         </section>
       </div>
+      <PrivacyAgreementModal
+        open={isPrivacyModalOpen}
+        onClose={() => setIsPrivacyModalOpen(false)}
+        onAgree={() => setAgreed(true)}
+      />
     </main>
   )
 }
