@@ -19,11 +19,48 @@ function getPrismScale() {
 
 export default function LightFolderSection() {
   const sectionRef = useRef(null)
-  const [collectProgress, setCollectProgress] = useState(0)
-  const [randomIndexes, setRandomIndexes] = useState({ random1: 0, random2: 0 })
+  const folderRef = useRef(null)
+  const productCardsRef = useRef(null)
+  const progressRef = useRef(-1)
 
   useEffect(() => {
     let frameId = 0
+
+    const updateProductCards = (collectEase) => {
+      if (!productCardsRef.current) {
+        productCardsRef.current = Array.from(
+          sectionRef.current?.querySelectorAll('[data-collect-card]') ?? [],
+        ).map((card) => ({
+          card,
+          moveX: Number(card.dataset.moveX) || 0,
+          moveY: Number(card.dataset.moveY) || 0,
+          finalOpacity: Number(card.dataset.finalOpacity) || 0,
+          finalScale: Number(card.dataset.finalScale) || 1,
+        }))
+      }
+
+      productCardsRef.current.forEach(({ card, moveX, moveY, finalOpacity, finalScale }) => {
+        const opacity = 1 + (finalOpacity - 1) * collectEase
+        const scale = 1 + (finalScale - 1) * collectEase
+
+        card.style.opacity = String(opacity)
+        card.style.transform = `translate3d(${moveX * collectEase}px, ${
+          moveY * collectEase
+        }px, 0) scale(${scale})`
+      })
+    }
+
+    const updateFolder = (collectEase) => {
+      const folder = folderRef.current
+      if (!folder) return
+
+      const translateX = (87 - 50.5) * (1 - collectEase)
+      const translateY = (916 - 871) * (1 - collectEase)
+      const scaleX = 202 / 274 + (1 - 202 / 274) * collectEase
+      const scaleY = 156 / 210 + (1 - 156 / 210) * collectEase
+
+      folder.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scaleX}, ${scaleY})`
+    }
 
     const updateProgress = () => {
       frameId = 0
@@ -36,10 +73,20 @@ export default function LightFolderSection() {
       const collectedFolderCenterY = (871 + 210 / 2) * prismScale
       const end = window.innerHeight / 2 - collectedFolderCenterY
       const nextProgress = Math.min(1, Math.max(0, (start - top) / (start - end)))
+      const collectEase = 1 - (1 - nextProgress) ** 3
 
-      setCollectProgress((previousProgress) =>
-        Math.abs(previousProgress - nextProgress) < 0.002 ? previousProgress : nextProgress,
+      if (Math.abs(progressRef.current - nextProgress) < 0.002) return
+      progressRef.current = nextProgress
+
+      section.style.setProperty('--collect-ease', collectEase.toFixed(4))
+      section.style.setProperty('--prism-opacity', String(1 - nextProgress))
+      section.style.setProperty(
+        '--folder-glow-play-state',
+        nextProgress > 0.96 ? 'running' : 'paused',
       )
+
+      updateFolder(collectEase)
+      updateProductCards(collectEase)
     }
 
     const requestUpdate = () => {
@@ -58,41 +105,14 @@ export default function LightFolderSection() {
     }
   }, [])
 
-  useEffect(() => {
-    const pickNextIndex = (currentIndex, length) => {
-      if (length <= 1) return currentIndex
-      let nextIndex = currentIndex
-      while (nextIndex === currentIndex) {
-        nextIndex = Math.floor(Math.random() * length)
-      }
-      return nextIndex
-    }
-
-    const intervalId = window.setInterval(() => {
-      setRandomIndexes(({ random1, random2 }) => ({
-        random1: pickNextIndex(random1, RANDOM_ITEMS.random1.length),
-        random2: pickNextIndex(random2, RANDOM_ITEMS.random2.length),
-      }))
-    }, 900)
-
-    return () => window.clearInterval(intervalId)
-  }, [])
-
-  const collectEase = 1 - (1 - collectProgress) ** 3
   const folderTarget = { x: 188, y: 988 }
-  const folderLeft = 87 + (50.5 - 87) * collectEase
-  const folderTop = 916 + (871 - 916) * collectEase
-  const folderWidth = 202 + (274 - 202) * collectEase
-  const folderHeight = 156 + (210 - 156) * collectEase
-  const randomItem1 = RANDOM_ITEMS.random1[randomIndexes.random1]
-  const randomItem2 = RANDOM_ITEMS.random2[randomIndexes.random2]
 
   return (
     <section ref={sectionRef} className='prism-section relative z-10 overflow-visible bg-gray-900'>
       <div className='prism-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent' />
 
       <div className='prism-stage relative z-30 mx-auto h-[1232px] w-[375px]'>
-        <PrismLight collectProgress={collectProgress} />
+        <PrismLight />
 
         <div className='absolute inset-x-0 top-0 z-20 h-[1080px]'>
           {PRISM_PRODUCTS.map((item, index) => {
@@ -115,8 +135,8 @@ export default function LightFolderSection() {
               <ProductCard
                 key={index}
                 {...item}
-                collectProgress={collectProgress}
-                collectTarget={collectTarget}
+                collectMoveX={collectTarget.x - (item.left + cardWidth / 2)}
+                collectMoveY={collectTarget.y - (item.top + cardHeight / 2)}
                 collectFinalOpacity={collectedState?.opacity ?? 0}
                 collectFinalScale={collectedState ? 1 : 0.36}
               />
@@ -141,15 +161,24 @@ export default function LightFolderSection() {
         </div>
 
         <div
+          ref={folderRef}
           className='absolute z-40'
           style={{
-            left: folderLeft,
-            top: folderTop,
-            width: folderWidth,
-            height: folderHeight,
+            left: 50.5,
+            top: 871,
+            width: 274,
+            height: 210,
+            transform: `translate3d(${87 - 50.5}px, ${916 - 871}px, 0) scale(${202 / 274}, ${
+              156 / 210
+            })`,
+            transformOrigin: 'top left',
+            willChange: 'transform',
           }}
         >
-          <div className='absolute inset-0' style={{ opacity: 1 - collectEase }}>
+          <div
+            className='absolute inset-0'
+            style={{ opacity: 'calc(1 - var(--collect-ease, 0))' }}
+          >
             <Image
               src='/images/folder/folder_m_btm.svg'
               alt=''
@@ -168,7 +197,7 @@ export default function LightFolderSection() {
 
           <div
             className='absolute left-1/2 top-0 z-0 h-full w-full -translate-x-1/2'
-            style={{ opacity: collectEase }}
+            style={{ opacity: 'var(--collect-ease, 0)' }}
           >
             <Image
               src='/images/folder/folder_l_btm.png'
@@ -185,53 +214,84 @@ export default function LightFolderSection() {
             fill
             sizes='274px'
             className='relative z-20 object-contain'
-            style={{ opacity: collectEase }}
+            style={{ opacity: 'var(--collect-ease, 0)' }}
           />
 
-          <div
-            className='absolute left-1/2 top-[62px] z-50 w-[226px] -translate-x-1/2 text-c1 text-black'
-            style={{ opacity: collectEase }}
-          >
-            흩어진
-            <span className='inline-flex items-center gap-2 text-c2'>
-              (
-              <span className='relative inline-block h-11 w-8 align-middle'>
-                <Image
-                  src={randomItem1.src}
-                  alt={randomItem1.alt}
-                  fill
-                  sizes='32px'
-                  className='object-contain'
-                />
-              </span>
-              )
-            </span>
-            <br />
-            취향
-            <span className='inline-flex items-center gap-2 text-c2'>
-              (
-              <span className='relative inline-block h-11 w-8 align-middle'>
-                <Image
-                  src={randomItem2.src}
-                  alt={randomItem2.alt}
-                  fill
-                  sizes='32px'
-                  className='object-contain'
-                />
-              </span>
-              )
-            </span>
-            을 한 곳에
-          </div>
-        </div>
-
-        <div className='absolute inset-x-0 top-[1106px] z-50 text-center text-c1 text-white'>
-          <p>
-            <span className='text-rainbow-glow'>고민</span>도 쇼핑의{' '}
-            <span className='text-rainbow-glow'>일부</span>니까
-          </p>
+          <FolderRandomText />
         </div>
       </div>
+
+      <div className='collect-caption pointer-events-none absolute inset-x-0 z-50 text-center text-white'>
+        <p>
+          <span className='text-rainbow-glow'>고민</span>도 쇼핑의{' '}
+          <span className='text-rainbow-glow'>일부</span>니까
+        </p>
+      </div>
     </section>
+  )
+}
+
+function FolderRandomText() {
+  const [randomIndexes, setRandomIndexes] = useState({ random1: 0, random2: 0 })
+
+  useEffect(() => {
+    const pickNextIndex = (currentIndex, length) => {
+      if (length <= 1) return currentIndex
+      let nextIndex = currentIndex
+      while (nextIndex === currentIndex) {
+        nextIndex = Math.floor(Math.random() * length)
+      }
+      return nextIndex
+    }
+
+    const intervalId = window.setInterval(() => {
+      setRandomIndexes(({ random1, random2 }) => ({
+        random1: pickNextIndex(random1, RANDOM_ITEMS.random1.length),
+        random2: pickNextIndex(random2, RANDOM_ITEMS.random2.length),
+      }))
+    }, 900)
+
+    return () => window.clearInterval(intervalId)
+  }, [])
+
+  const randomItem1 = RANDOM_ITEMS.random1[randomIndexes.random1]
+  const randomItem2 = RANDOM_ITEMS.random2[randomIndexes.random2]
+
+  return (
+    <div
+      className='absolute left-1/2 top-[62px] z-50 w-[226px] -translate-x-1/2 text-c1 text-black'
+      style={{ opacity: 'var(--collect-ease, 0)' }}
+    >
+      흩어진
+      <span className='inline-flex items-center gap-2 text-c2'>
+        (
+        <span className='relative inline-block h-11 w-8 align-middle'>
+          <Image
+            src={randomItem1.src}
+            alt={randomItem1.alt}
+            fill
+            sizes='32px'
+            className='object-contain'
+          />
+        </span>
+        )
+      </span>
+      <br />
+      취향
+      <span className='inline-flex items-center gap-2 text-c2'>
+        (
+        <span className='relative inline-block h-11 w-8 align-middle'>
+          <Image
+            src={randomItem2.src}
+            alt={randomItem2.alt}
+            fill
+            sizes='32px'
+            className='object-contain'
+          />
+        </span>
+        )
+      </span>
+      을 한 곳에
+    </div>
   )
 }

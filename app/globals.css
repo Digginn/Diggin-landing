@@ -85,6 +85,13 @@ body {
   transform-origin: top center;
 }
 
+.collect-caption {
+  top: calc(1106px * var(--prism-stage-scale));
+  font-size: calc(28px * var(--prism-stage-scale));
+  font-weight: 700;
+  line-height: 1.45;
+}
+
 .survey-kicker {
   font-size: 12px;
   font-weight: 500;
@@ -237,6 +244,7 @@ body {
 
 .folder-panel-glow {
   animation: folder-panel-glow 8s linear infinite;
+  animation-play-state: var(--folder-glow-play-state, running);
 }
 
 @keyframes folder-panel-glow {
@@ -264,10 +272,16 @@ body {
   z-index: 10;
   overflow: visible;
   pointer-events: none;
+  opacity: var(--prism-opacity, 1);
   transform: translateY(var(--prism-y, -30px))
     scale(var(--prism-scale-x, 1), var(--prism-scale-y, 1));
   transform-origin: 50% 100%;
   will-change: transform, opacity;
+}
+
+.collect-product-card {
+  contain: layout paint;
+  backface-visibility: hidden;
 }
 
 .prism-svg {
