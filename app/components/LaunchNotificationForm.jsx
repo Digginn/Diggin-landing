@@ -28,13 +28,14 @@ export default function LaunchNotificationForm() {
   const [phoneError, setPhoneError] = useState('')
   const [agreed, setAgreed] = useState(false)
   const [agreementError, setAgreementError] = useState('')
+  const [hasBlurredPhone, setHasBlurredPhone] = useState(false)
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const [responsiveMode, setResponsiveMode] = useState({ inputSize: 's' })
   const isPhoneReady = getPhoneError(phone) === ''
-  const canSubmit = isPhoneReady && agreed && !isSubmitting
+  const canTrySubmit = isPhoneReady && !isSubmitting
 
   useEffect(() => {
     const updateMode = () => setResponsiveMode(getResponsiveMode())
@@ -49,26 +50,25 @@ export default function LaunchNotificationForm() {
     setPhone(next)
     setSubmitMessage('')
     const err = getPhoneError(next)
-    if (hasTriedSubmit) setPhoneError(err)
+    if (hasBlurredPhone || hasTriedSubmit) setPhoneError(err)
     setAgreementError(!err && hasTriedSubmit && !agreed ? AGREEMENT_ERROR : '')
   }
 
   const handlePhoneBlur = () => {
     const err = getPhoneError(phone)
-    setHasTriedSubmit(true)
+    setHasBlurredPhone(true)
     setPhoneError(err)
-    setAgreementError(!err && !agreed ? AGREEMENT_ERROR : '')
   }
 
   const handleAgreementToggle = () => {
     const next = !agreed
     setAgreed(next)
     setSubmitMessage('')
-    setAgreementError(!next && isPhoneReady ? AGREEMENT_ERROR : '')
+    setAgreementError(!next && isPhoneReady && hasTriedSubmit ? AGREEMENT_ERROR : '')
   }
 
   const handleAgreementBlur = () => {
-    setAgreementError(!agreed && isPhoneReady ? AGREEMENT_ERROR : '')
+    setAgreementError(!agreed && isPhoneReady && hasTriedSubmit ? AGREEMENT_ERROR : '')
   }
 
   const handleSubmit = async () => {
@@ -123,7 +123,7 @@ export default function LaunchNotificationForm() {
           onSubmit={handleSubmit}
           onBlur={handlePhoneBlur}
           error={phoneError}
-          disabled={!canSubmit}
+          disabled={!canTrySubmit}
           placeholder='010-XXXX-XXXX.digging'
         />
         {agreementError ? (
