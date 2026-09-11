@@ -23,6 +23,7 @@ function getPhoneError(value) {
 }
 
 const AGREEMENT_ERROR = '개인정보 이용 동의가 필요해요.'
+const AGREEMENT_VERSION = '2026-09-12'
 
 function getResponsiveMode() {
   if (typeof window === 'undefined') return { inputSize: 's' }
@@ -263,10 +264,12 @@ export default function Home() {
   const [agreed, setAgreed] = useState(false)
   const [agreementError, setAgreementError] = useState('')
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState('')
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const [responsiveMode, setResponsiveMode] = useState({ inputSize: 's' })
   const isPhoneReady = getPhoneError(phone) === ''
-  const canSubmit = isPhoneReady && agreed
+  const canSubmit = isPhoneReady && agreed && !isSubmitting
 
   useEffect(() => {
     const updateMode = () => setResponsiveMode(getResponsiveMode())
@@ -279,6 +282,7 @@ export default function Home() {
 
   const handlePhoneChange = (next) => {
     setPhone(next)
+    setSubmitMessage('')
     const err = getPhoneError(next)
     if (hasTriedSubmit) setPhoneError(err)
     setAgreementError(!err && hasTriedSubmit && !agreed ? AGREEMENT_ERROR : '')
@@ -294,6 +298,7 @@ export default function Home() {
   const handleAgreementToggle = () => {
     const next = !agreed
     setAgreed(next)
+    setSubmitMessage('')
     setAgreementError(!next && isPhoneReady ? AGREEMENT_ERROR : '')
   }
 
@@ -301,14 +306,46 @@ export default function Home() {
     setAgreementError(!agreed && isPhoneReady ? AGREEMENT_ERROR : '')
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setHasTriedSubmit(true)
+    setSubmitMessage('')
     const err = getPhoneError(phone)
     setPhoneError(err)
     setAgreementError(!err && !agreed ? AGREEMENT_ERROR : '')
     if (err) return
     if (!agreed) return
-    console.log('제출:', phone)
+
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/launch-notifications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone,
+          privacyAgreed: agreed,
+          agreementVersion: AGREEMENT_VERSION,
+        }),
+      })
+      const data = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        setPhoneError(
+          data.type === 'server_error'
+            ? '저장 중 문제가 생겼어요. 잠시 후 다시 시도해주세요.'
+            : data.message ?? '저장 중 문제가 생겼어요. 잠시 후 다시 시도해주세요.'
+        )
+        return
+      }
+
+      setPhoneError('')
+      setAgreementError('')
+      setSubmitMessage(data.message ?? '출시 알림 신청이 완료됐어요.')
+    } catch {
+      setPhoneError('저장 중 문제가 생겼어요. 잠시 후 다시 시도해주세요.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const ActionPill = ({ label, icon, count, radiusClassName }) => (
@@ -422,6 +459,11 @@ export default function Home() {
               {agreementError ? (
                 <p className='w-[324px] px-5 text-[12px] font-medium leading-[1.3] tracking-[0.24px] text-[#ff383c] min-[744px]:w-[486px] min-[744px]:px-[30px] min-[744px]:text-[18px] min-[744px]:tracking-[0.36px] min-[1280px]:w-[648px] min-[1280px]:px-10 min-[1280px]:text-[24px] min-[1280px]:tracking-[0.48px]'>
                   {agreementError}
+                </p>
+              ) : null}
+              {submitMessage ? (
+                <p className='w-[324px] px-5 text-[12px] font-medium leading-[1.3] tracking-[0.24px] text-gray-300 min-[744px]:w-[486px] min-[744px]:px-[30px] min-[744px]:text-[18px] min-[744px]:tracking-[0.36px] min-[1280px]:w-[648px] min-[1280px]:px-10 min-[1280px]:text-[24px] min-[1280px]:tracking-[0.48px]'>
+                  {submitMessage}
                 </p>
               ) : null}
               <div className='flex w-[355px] items-center gap-0.5 min-[744px]:w-[532.5px] min-[744px]:gap-[3px] min-[1280px]:w-[710px] min-[1280px]:gap-1'>
