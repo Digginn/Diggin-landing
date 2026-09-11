@@ -59,7 +59,7 @@ export default function Home() {
                 <div
                   className='folder-panel-glow absolute rounded-[6px] bg-gradient-to-b from-[rgba(255,255,255,0.68)] to-[#848484] border-[0.5px] border-[rgba(255,255,255,0.32)]'
                   style={{
-                    inset: '0 8px',
+                    inset: '0 6.67%',
                   }}
                 />
                 <div className='absolute inset-x-0 bottom-0' style={{ top: '25%' }}>
@@ -68,7 +68,7 @@ export default function Home() {
                     alt=''
                     fill
                     sizes='120px'
-                    className='object-contain object-bottom'
+                    className='object-fill'
                   />
                 </div>
               </div>
