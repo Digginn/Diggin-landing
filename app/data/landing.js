@@ -200,6 +200,21 @@ export const COLLECTED_PRODUCT_STATES = {
   },
 }
 
+export const RANDOM_ITEMS = {
+  random1: [
+    { src: '/images/items/random1/image 364.png', alt: '가방' },
+    { src: '/images/items/random1/image 368.png', alt: '디퓨저' },
+    { src: '/images/items/random1/image 404.png', alt: '티셔츠' },
+    { src: '/images/items/random1/image 405.png', alt: '소품' },
+  ],
+  random2: [
+    { src: '/images/items/random2/image 366.png', alt: '니트' },
+    { src: '/images/items/random2/image 370.png', alt: '가방' },
+    { src: '/images/items/random2/image 372.png', alt: '팬츠' },
+    { src: '/images/items/random2/image 407.png', alt: '백팩' },
+  ],
+}
+
 export const ACTION_BUTTONS = [
   {
     label: '장바구니',

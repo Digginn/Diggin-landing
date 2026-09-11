@@ -10,6 +10,7 @@ import {
   BRANDS,
   COLLECTED_PRODUCT_STATES,
   PRISM_PRODUCTS,
+  RANDOM_ITEMS,
 } from '@/app/data/landing'
 
 function getPhoneError(value) {
@@ -23,6 +24,7 @@ function getPhoneError(value) {
 function LightFolderSection() {
   const sectionRef = useRef(null)
   const [collectProgress, setCollectProgress] = useState(0)
+  const [randomIndexes, setRandomIndexes] = useState({ random1: 0, random2: 0 })
 
   useEffect(() => {
     let frameId = 0
@@ -39,7 +41,7 @@ function LightFolderSection() {
       const nextProgress = Math.min(1, Math.max(0, (start - top) / (start - end)))
 
       setCollectProgress((previousProgress) =>
-        Math.abs(previousProgress - nextProgress) < 0.002 ? previousProgress : nextProgress
+        Math.abs(previousProgress - nextProgress) < 0.002 ? previousProgress : nextProgress,
       )
     }
 
@@ -59,12 +61,34 @@ function LightFolderSection() {
     }
   }, [])
 
+  useEffect(() => {
+    const pickNextIndex = (currentIndex, length) => {
+      if (length <= 1) return currentIndex
+      let nextIndex = currentIndex
+      while (nextIndex === currentIndex) {
+        nextIndex = Math.floor(Math.random() * length)
+      }
+      return nextIndex
+    }
+
+    const intervalId = window.setInterval(() => {
+      setRandomIndexes(({ random1, random2 }) => ({
+        random1: pickNextIndex(random1, RANDOM_ITEMS.random1.length),
+        random2: pickNextIndex(random2, RANDOM_ITEMS.random2.length),
+      }))
+    }, 900)
+
+    return () => window.clearInterval(intervalId)
+  }, [])
+
   const collectEase = 1 - (1 - collectProgress) ** 3
   const folderTarget = { x: 188, y: 988 }
   const folderLeft = 87 + (50.5 - 87) * collectEase
   const folderTop = 916 + (871 - 916) * collectEase
   const folderWidth = 202 + (274 - 202) * collectEase
   const folderHeight = 156 + (210 - 156) * collectEase
+  const randomItem1 = RANDOM_ITEMS.random1[randomIndexes.random1]
+  const randomItem2 = RANDOM_ITEMS.random2[randomIndexes.random2]
 
   return (
     <section ref={sectionRef} className='relative z-10 h-[1232px] overflow-visible bg-gray-900'>
@@ -111,7 +135,10 @@ function LightFolderSection() {
           <p>저장하고,</p>
         </div>
 
-        <div className='absolute inset-x-0 top-[671px] z-30 text-center' style={{ opacity: 1 - collectEase }}>
+        <div
+          className='absolute inset-x-0 top-[671px] z-30 text-center'
+          style={{ opacity: 1 - collectEase }}
+        >
           <p className='mb-0.5 text-b2 text-gray-50 drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)]'>
             필요할 때 바로 다시 찾는
           </p>
@@ -156,22 +183,43 @@ function LightFolderSection() {
           />
 
           <div
-            className='absolute left-1/2 top-[62px] z-50 w-[226px] -translate-x-1/2 text-[28px] font-bold leading-[1.45] text-black'
+            className='absolute left-1/2 top-[62px] z-50 w-[226px] -translate-x-1/2 text-c1 text-black'
             style={{ opacity: collectEase }}
           >
-            <p>흩어진 취향</p>
-            <p>한 곳에</p>
+            흩어진
+            <span className='inline-flex items-center gap-2 text-c2'>
+              (
+              <span className='relative inline-block h-11 w-8 align-middle'>
+                <Image
+                  src={randomItem1.src}
+                  alt={randomItem1.alt}
+                  fill
+                  sizes='32px'
+                  className='object-contain'
+                />
+              </span>
+              )
+            </span>
+            <br />
+            취향
+            <span className='inline-flex items-center gap-2 text-c2'>
+              (
+              <span className='relative inline-block h-11 w-8 align-middle'>
+                <Image
+                  src={randomItem2.src}
+                  alt={randomItem2.alt}
+                  fill
+                  sizes='32px'
+                  className='object-contain'
+                />
+              </span>
+              )
+            </span>
+            을 한 곳에
           </div>
         </div>
 
-        <div
-          className='absolute inset-x-0 top-[1106px] z-50 text-center text-[28px] font-bold leading-[1.45] text-white'
-          style={{
-            opacity: collectEase,
-            textShadow:
-              '0 4px 6.7px rgba(233,99,99,0.93), 0 -5px 8.3px #0062ff, -2px 0 6.2px rgba(255,251,0,0.84)',
-          }}
-        >
+        <div className='absolute inset-x-0 top-[1106px] z-50 text-center text-c1 text-white'>
           <p>고민도 쇼핑의 일부니까</p>
         </div>
       </div>
