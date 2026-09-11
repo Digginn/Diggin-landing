@@ -172,6 +172,34 @@ export const PRISM_PRODUCTS = [
   },
 ]
 
+export const COLLECTED_PRODUCT_STATES = {
+  '/images/items/item-decor.png': {
+    left: 94,
+    top: 891,
+    opacity: 0.72,
+  },
+  '/images/items/item-bag-coat.png': {
+    left: 187,
+    top: 948,
+    opacity: 0.58,
+  },
+  '/images/items/item-terrarium.png': {
+    left: 68,
+    top: 978,
+    opacity: 0.54,
+  },
+  '/images/items/item-notebook.png': {
+    left: 184,
+    top: 919,
+    opacity: 0.62,
+  },
+  '/images/items/item-tshirt.png': {
+    left: 100,
+    top: 946,
+    opacity: 0.68,
+  },
+}
+
 export const ACTION_BUTTONS = [
   {
     label: '장바구니',

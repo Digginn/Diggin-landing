@@ -196,9 +196,23 @@ function PrismMainLayers({ idPrefix }) {
   )
 }
 
-export default function PrismLight() {
+export default function PrismLight({ collectProgress = 0 }) {
+  const opacity = 1 - collectProgress
+  const scaleX = 1 - collectProgress * 0.34
+  const scaleY = 1 - collectProgress * 0.28
+  const y = -30 + collectProgress * 150
+
   return (
-    <div className='prism-light-field' aria-hidden='true'>
+    <div
+      className='prism-light-field'
+      style={{
+        '--prism-y': `${y}px`,
+        '--prism-scale-x': scaleX,
+        '--prism-scale-y': scaleY,
+        opacity,
+      }}
+      aria-hidden='true'
+    >
       <PrismSideLayer idPrefix='prism-side-base' className='prism-side-light-base' />
       <PrismSideLayer idPrefix='prism-side-soft-blur' className='prism-side-light-soft-blur' />
       <PrismSideLayer idPrefix='prism-side-strong-blur' className='prism-side-light-strong-blur' />

@@ -1,11 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Input from '@/app/components/Input'
 import ProductCard from '@/app/components/ProductCard'
 import PrismLight from '@/app/components/PrismLight'
-import { ACTION_BUTTONS, BRANDS, PRISM_PRODUCTS } from '@/app/data/landing'
+import {
+  ACTION_BUTTONS,
+  BRANDS,
+  COLLECTED_PRODUCT_STATES,
+  PRISM_PRODUCTS,
+} from '@/app/data/landing'
 
 function getPhoneError(value) {
   const digits = value.replace(/\D/g, '')
@@ -16,25 +21,97 @@ function getPhoneError(value) {
 }
 
 function LightFolderSection() {
+  const sectionRef = useRef(null)
+  const [collectProgress, setCollectProgress] = useState(0)
+
+  useEffect(() => {
+    let frameId = 0
+
+    const updateProgress = () => {
+      frameId = 0
+      const section = sectionRef.current
+      if (!section) return
+
+      const { top } = section.getBoundingClientRect()
+      const start = -80
+      const collectedFolderCenterY = 871 + 210 / 2
+      const end = window.innerHeight / 2 - collectedFolderCenterY
+      const nextProgress = Math.min(1, Math.max(0, (start - top) / (start - end)))
+
+      setCollectProgress((previousProgress) =>
+        Math.abs(previousProgress - nextProgress) < 0.002 ? previousProgress : nextProgress
+      )
+    }
+
+    const requestUpdate = () => {
+      if (frameId) return
+      frameId = window.requestAnimationFrame(updateProgress)
+    }
+
+    requestUpdate()
+    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
+
+    return () => {
+      if (frameId) window.cancelAnimationFrame(frameId)
+      window.removeEventListener('scroll', requestUpdate)
+      window.removeEventListener('resize', requestUpdate)
+    }
+  }, [])
+
+  const collectEase = 1 - (1 - collectProgress) ** 3
+  const folderTarget = { x: 188, y: 988 }
+  const folderLeft = 87 + (50.5 - 87) * collectEase
+  const folderTop = 916 + (871 - 916) * collectEase
+  const folderWidth = 202 + (274 - 202) * collectEase
+  const folderHeight = 156 + (210 - 156) * collectEase
+
   return (
-    <section className='relative z-10 h-[1232px] overflow-visible bg-gray-900'>
+    <section ref={sectionRef} className='relative z-10 h-[1232px] overflow-visible bg-gray-900'>
       <div className='pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[268px] bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent' />
 
       <div className='relative mx-auto h-full w-[375px]'>
-        <PrismLight />
+        <PrismLight collectProgress={collectProgress} />
 
         <div className='absolute inset-x-0 top-0 z-20 h-[1080px]'>
-          {PRISM_PRODUCTS.map((item, index) => (
-            <ProductCard key={index} {...item} />
-          ))}
+          {PRISM_PRODUCTS.map((item, index) => {
+            const cardWidth = item.width ?? item.size
+            const cardHeight = item.height ?? item.size
+            const collectedState = COLLECTED_PRODUCT_STATES[item.src]
+            const targetOffsetX = ((index % 5) - 2) * 3
+            const targetOffsetY = (index % 4) * 3
+            const collectTarget = collectedState
+              ? {
+                  x: collectedState.left + cardWidth / 2,
+                  y: collectedState.top + cardHeight / 2,
+                }
+              : {
+                  x: folderTarget.x + targetOffsetX,
+                  y: folderTarget.y + targetOffsetY,
+                }
+
+            return (
+              <ProductCard
+                key={index}
+                {...item}
+                collectProgress={collectProgress}
+                collectTarget={collectTarget}
+                collectFinalOpacity={collectedState?.opacity ?? 0}
+                collectFinalScale={collectedState ? 1 : 0.36}
+              />
+            )
+          })}
         </div>
 
-        <div className='absolute inset-x-0 top-[255px] z-30 text-center text-b1 text-white'>
+        <div
+          className='absolute inset-x-0 top-[255px] z-30 text-center text-b1 text-white'
+          style={{ opacity: 1 - collectEase }}
+        >
           <p>발견한 순간</p>
           <p>저장하고,</p>
         </div>
 
-        <div className='absolute inset-x-0 top-[671px] z-30 text-center'>
+        <div className='absolute inset-x-0 top-[671px] z-30 text-center' style={{ opacity: 1 - collectEase }}>
           <p className='mb-0.5 text-b2 text-gray-50 drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)]'>
             필요할 때 바로 다시 찾는
           </p>
@@ -43,21 +120,59 @@ function LightFolderSection() {
           </p>
         </div>
 
-        <div className='absolute left-[87px] top-[916px] z-40 h-[156px] w-[202px]'>
+        <div
+          className='absolute z-40'
+          style={{
+            left: folderLeft,
+            top: folderTop,
+            width: folderWidth,
+            height: folderHeight,
+          }}
+        >
+          <div className='absolute inset-0' style={{ opacity: 1 - collectEase }}>
+            <Image
+              src='/images/folder/folder_m_btm.svg'
+              alt=''
+              fill
+              sizes='274px'
+              className='object-contain'
+            />
+            <Image
+              src='/images/folder/folder_m_open.svg'
+              alt=''
+              width={230}
+              height={117}
+              className='absolute left-[-16px] top-[40px] max-w-none'
+            />
+          </div>
+
           <Image
-            src='/images/folder/folder_m_btm.svg'
+            src='/images/folder/folder_m_close.svg'
             alt=''
             fill
-            sizes='202px'
+            sizes='274px'
             className='object-contain'
+            style={{ opacity: collectEase }}
           />
-          <Image
-            src='/images/folder/folder_m_open.svg'
-            alt=''
-            width={230}
-            height={117}
-            className='absolute left-[-16px] top-[40px] max-w-none'
-          />
+
+          <div
+            className='absolute left-1/2 top-[62px] z-50 w-[226px] -translate-x-1/2 text-[28px] font-bold leading-[1.45] text-black'
+            style={{ opacity: collectEase }}
+          >
+            <p>흩어진 취향</p>
+            <p>한 곳에</p>
+          </div>
+        </div>
+
+        <div
+          className='absolute inset-x-0 top-[1106px] z-50 text-center text-[28px] font-bold leading-[1.45] text-white'
+          style={{
+            opacity: collectEase,
+            textShadow:
+              '0 4px 6.7px rgba(233,99,99,0.93), 0 -5px 8.3px #0062ff, -2px 0 6.2px rgba(255,251,0,0.84)',
+          }}
+        >
+          <p>고민도 쇼핑의 일부니까</p>
         </div>
       </div>
     </section>
