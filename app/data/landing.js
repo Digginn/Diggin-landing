@@ -220,18 +220,18 @@ export const ACTION_BUTTONS = [
     label: '장바구니',
     icon: '/icons/live_area-1.svg',
     count: '23',
-    radiusClassName: 'rounded-[4px]',
+    radiusClassName: 'rounded-[4px] min-[744px]:rounded-[6px] min-[1280px]:rounded-[8px]',
   },
   {
     label: '찜하기',
     icon: '/icons/heart-black.svg',
     count: '5',
-    radiusClassName: 'rounded-[34px]',
+    radiusClassName: 'rounded-[34px] min-[744px]:rounded-[51px] min-[1280px]:rounded-[68px]',
   },
   {
     label: '내 위시',
     icon: '/icons/Union.svg',
     count: '56',
-    radiusClassName: 'rounded-[4px]',
+    radiusClassName: 'rounded-[4px] min-[744px]:rounded-[6px] min-[1280px]:rounded-[8px]',
   },
 ]

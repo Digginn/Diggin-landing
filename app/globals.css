@@ -29,6 +29,81 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.landing-page {
+  --landing-ui-scale: 1;
+  --prism-stage-scale: 1;
+}
+
+.landing-content {
+  gap: calc(80px * var(--landing-ui-scale));
+  padding-left: calc(32px * var(--landing-ui-scale));
+  padding-right: calc(32px * var(--landing-ui-scale));
+  padding-bottom: calc(129px * var(--landing-ui-scale));
+}
+
+.landing-headline {
+  gap: calc(26px * var(--landing-ui-scale));
+  padding-top: calc(26px * var(--landing-ui-scale));
+}
+
+.landing-content .text-h1,
+.landing-content .text-h2 {
+  font-size: calc(32px * var(--landing-ui-scale));
+}
+
+.landing-content .text-h4 {
+  font-size: calc(20px * var(--landing-ui-scale));
+}
+
+.landing-content .text-h5 {
+  font-size: calc(18px * var(--landing-ui-scale));
+}
+
+.landing-content .text-b3 {
+  font-size: calc(16px * var(--landing-ui-scale));
+}
+
+.landing-content .text-s1 {
+  font-size: calc(15px * var(--landing-ui-scale));
+}
+
+.landing-folder-icon {
+  width: calc(120px * var(--landing-ui-scale));
+  height: calc(80px * var(--landing-ui-scale));
+}
+
+.prism-section {
+  height: 1232px;
+}
+
+.prism-bottom-fade {
+  height: calc(268px * var(--prism-stage-scale));
+}
+
+.prism-stage {
+  transform: scale(var(--prism-stage-scale));
+  transform-origin: top center;
+}
+
+.survey-kicker {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 2;
+}
+
+.survey-title {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.survey-button-text {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.32px;
+}
+
 .folder-panel-glow {
   animation: folder-panel-glow 8s linear infinite;
 }
@@ -199,12 +274,77 @@ body {
 }
 
 .brand-loop-track {
+  --brand-loop-distance: 672px;
   animation: brand-loop-scroll 28s linear infinite;
 }
 
 @keyframes brand-loop-scroll {
   to {
-    transform: translate3d(-672px, 0, 0);
+    transform: translate3d(calc(var(--brand-loop-distance) * -1), 0, 0);
+  }
+}
+
+@media (min-width: 744px) {
+  .landing-page {
+    --landing-ui-scale: 1.5;
+    --prism-stage-scale: 1.5;
+  }
+
+  .landing-top-visual {
+    height: 366px;
+  }
+
+  .prism-section {
+    height: 1848px;
+  }
+
+  .brand-loop-track {
+    --brand-loop-distance: 1008px;
+  }
+
+  .survey-kicker {
+    font-size: 18px;
+  }
+
+  .survey-title {
+    font-size: 42px;
+  }
+
+  .survey-button-text {
+    font-size: 24px;
+    letter-spacing: -0.48px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .landing-page {
+    --landing-ui-scale: 2;
+    --prism-stage-scale: 2.25;
+  }
+
+  .landing-top-visual {
+    height: 244px;
+  }
+
+  .prism-section {
+    height: 2772px;
+  }
+
+  .brand-loop-track {
+    --brand-loop-distance: 1344px;
+  }
+
+  .survey-kicker {
+    font-size: 24px;
+  }
+
+  .survey-title {
+    font-size: 56px;
+  }
+
+  .survey-button-text {
+    font-size: 32px;
+    letter-spacing: -0.64px;
   }
 }
 
