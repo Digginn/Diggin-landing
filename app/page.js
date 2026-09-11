@@ -344,7 +344,7 @@ export default function Home() {
                 onChange={handlePhoneChange}
                 onSubmit={handleSubmit}
                 error={phoneError}
-                placeholder='010-XXXX-XXXX'
+                placeholder='010-XXXX-XXXX.digging'
               />
               <div className='flex gap-0.5 items-center w-88.75'>
                 <button
