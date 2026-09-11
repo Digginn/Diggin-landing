@@ -173,12 +173,25 @@ function LightFolderSection() {
             />
           </div>
 
+          <div
+            className='absolute left-1/2 top-0 z-0 h-full w-full -translate-x-1/2'
+            style={{ opacity: collectEase }}
+          >
+            <Image
+              src='/images/folder/folder_l_btm.png'
+              alt=''
+              fill
+              sizes='274px'
+              className='folder-panel-glow object-fill'
+            />
+          </div>
+
           <Image
             src='/images/folder/folder_m_close.svg'
             alt=''
             fill
             sizes='274px'
-            className='object-contain'
+            className='relative z-20 object-contain'
             style={{ opacity: collectEase }}
           />
 
@@ -220,7 +233,10 @@ function LightFolderSection() {
         </div>
 
         <div className='absolute inset-x-0 top-[1106px] z-50 text-center text-c1 text-white'>
-          <p>고민도 쇼핑의 일부니까</p>
+          <p>
+            <span className='text-rainbow-glow'>고민</span>도 쇼핑의{' '}
+            <span className='text-rainbow-glow'>일부</span>니까
+          </p>
         </div>
       </div>
     </section>
