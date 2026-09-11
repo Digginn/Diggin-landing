@@ -177,7 +177,7 @@ export default function LightFolderSection() {
         >
           <div
             className='absolute inset-0'
-            style={{ opacity: 'calc(1 - var(--collect-ease, 0))' }}
+            style={{ opacity: 'calc(1 - var(--collect-ease, 0))', willChange: 'opacity' }}
           >
             <Image
               src='/images/folder/folder_m_btm.svg'
@@ -197,7 +197,7 @@ export default function LightFolderSection() {
 
           <div
             className='absolute left-1/2 top-0 z-0 h-full w-full -translate-x-1/2'
-            style={{ opacity: 'var(--collect-ease, 0)' }}
+            style={{ opacity: 'var(--collect-ease, 0)', willChange: 'opacity' }}
           >
             <Image
               src='/images/folder/folder_l_btm.png'
@@ -214,7 +214,7 @@ export default function LightFolderSection() {
             fill
             sizes='274px'
             className='relative z-20 object-contain'
-            style={{ opacity: 'var(--collect-ease, 0)' }}
+            style={{ opacity: 'var(--collect-ease, 0)', willChange: 'opacity' }}
           />
 
           <FolderRandomText />
@@ -260,7 +260,7 @@ function FolderRandomText() {
   return (
     <div
       className='absolute left-1/2 top-[62px] z-50 w-[226px] -translate-x-1/2 text-c1 text-black'
-      style={{ opacity: 'var(--collect-ease, 0)' }}
+      style={{ opacity: 'var(--collect-ease, 0)', willChange: 'opacity' }}
     >
       흩어진
       <span className='inline-flex items-center gap-2 text-c2'>
