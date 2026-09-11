@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Input from '@/app/components/Input'
 import ProductCard from '@/app/components/ProductCard'
+import PrismLight from '@/app/components/PrismLight'
 import { ACTION_BUTTONS, BRANDS, PRISM_PRODUCTS } from '@/app/data/landing'
 
 function getPhoneError(value) {
@@ -16,10 +17,12 @@ function getPhoneError(value) {
 
 function LightFolderSection() {
   return (
-    <section className='relative h-[1232px] overflow-hidden bg-gray-900'>
+    <section className='relative z-10 h-[1232px] overflow-hidden bg-gray-900'>
       <div className='pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[268px] bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent' />
 
       <div className='relative mx-auto h-full w-[375px]'>
+        <PrismLight />
+
         <div className='absolute inset-x-0 top-0 z-20 h-[1080px]'>
           {PRISM_PRODUCTS.map((item, index) => (
             <ProductCard key={index} {...item} />
@@ -41,7 +44,6 @@ function LightFolderSection() {
         </div>
 
         <div className='absolute left-[87px] top-[916px] z-40 h-[156px] w-[202px]'>
-          <div className='absolute -left-10 -top-16 h-[172px] w-[282px] rounded-full bg-white/20 blur-[36px]' />
           <Image
             src='/images/folder/folder_m_btm.svg'
             alt=''
@@ -101,7 +103,7 @@ export default function Home() {
 
   return (
     <main className='bg-gray-100 min-h-screen font-sans'>
-      <div className='mx-auto min-h-screen w-full max-w-[743px] overflow-hidden bg-gray-900'>
+      <div className='mx-auto min-h-screen w-full max-w-[743px] overflow-visible bg-gray-900'>
         {/* ── 상단 아이템 이미지 ── */}
         <div className='relative h-[244px] overflow-hidden'>
           <div className='absolute left-1/2 -translate-x-1/2 w-[442px] h-[300px] -top-8'>
@@ -117,7 +119,7 @@ export default function Home() {
         </div>
 
         {/* ── 메인 콘텐츠 ── */}
-        <div className='flex flex-col items-center gap-20 px-8 pb-[129px]'>
+        <div className='relative z-30 flex flex-col items-center gap-20 bg-gray-900 px-8 pb-[129px]'>
           {/* 헤드라인 */}
           <div className='flex flex-col items-center gap-[26px] text-center pt-[26px]'>
             <div className='flex flex-col items-center'>
