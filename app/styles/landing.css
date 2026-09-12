@@ -4,7 +4,7 @@
 }
 
 .landing-content {
-  gap: calc(80px * var(--landing-ui-scale));
+  gap: 40px;
   padding-left: calc(32px * var(--landing-ui-scale));
   padding-right: calc(32px * var(--landing-ui-scale));
   padding-bottom: calc(129px * var(--landing-ui-scale));
@@ -70,6 +70,10 @@
     height: 366px;
   }
 
+  .landing-content {
+    gap: 80px;
+  }
+
   .survey-kicker {
     font-size: 18px;
   }
@@ -92,6 +96,10 @@
 
   .landing-top-visual {
     height: 244px;
+  }
+
+  .landing-content {
+    gap: 120px;
   }
 
   .survey-kicker {
