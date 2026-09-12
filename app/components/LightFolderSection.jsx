@@ -17,6 +17,24 @@ function getPrismScale() {
   return 1
 }
 
+function getFolderTransform(collectEase) {
+  if (typeof window !== 'undefined' && window.innerWidth >= 1280) {
+    return {
+      translateX: 0,
+      translateY: 0,
+      scaleX: 1,
+      scaleY: 1,
+    }
+  }
+
+  return {
+    translateX: (87 - 50.5) * (1 - collectEase),
+    translateY: (916 - 871) * (1 - collectEase),
+    scaleX: 202 / 274 + (1 - 202 / 274) * collectEase,
+    scaleY: 156 / 210 + (1 - 156 / 210) * collectEase,
+  }
+}
+
 export default function LightFolderSection() {
   const sectionRef = useRef(null)
   const stageRef = useRef(null)
@@ -24,6 +42,8 @@ export default function LightFolderSection() {
   const productCardsRef = useRef(null)
   const progressRef = useRef(-1)
   const naturalScrollRef = useRef(false)
+  const captionTimeoutRef = useRef(null)
+  const captionVisibleRef = useRef(false)
 
   useEffect(() => {
     let frameId = 0
@@ -56,10 +76,7 @@ export default function LightFolderSection() {
       const folder = folderRef.current
       if (!folder) return
 
-      const translateX = (87 - 50.5) * (1 - collectEase)
-      const translateY = (916 - 871) * (1 - collectEase)
-      const scaleX = 202 / 274 + (1 - 202 / 274) * collectEase
-      const scaleY = 156 / 210 + (1 - 156 / 210) * collectEase
+      const { translateX, translateY, scaleX, scaleY } = getFolderTransform(collectEase)
 
       folder.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scaleX}, ${scaleY})`
     }
@@ -95,11 +112,32 @@ export default function LightFolderSection() {
       }
 
       const collectEase = 1 - (1 - nextProgress) ** 3
+      const closeProgress = Math.min(1, Math.max(0, (nextProgress - 0.88) / 0.12))
+      const closeEase = 1 - (1 - closeProgress) ** 3
+      const folderTextProgress = Math.min(1, Math.max(0, (nextProgress - 0.985) / 0.015))
+      const folderTextEase = 1 - (1 - folderTextProgress) ** 3
+
+      if (folderTextProgress >= 1 && !captionVisibleRef.current && !captionTimeoutRef.current) {
+        captionTimeoutRef.current = window.setTimeout(() => {
+          captionVisibleRef.current = true
+          section.style.setProperty('--collect-caption-progress', '1')
+          captionTimeoutRef.current = null
+        }, 1000)
+      } else if (folderTextProgress < 1) {
+        if (captionTimeoutRef.current) {
+          window.clearTimeout(captionTimeoutRef.current)
+          captionTimeoutRef.current = null
+        }
+        captionVisibleRef.current = false
+        section.style.setProperty('--collect-caption-progress', '0')
+      }
 
       if (Math.abs(progressRef.current - nextProgress) < 0.002) return
       progressRef.current = nextProgress
 
       section.style.setProperty('--collect-ease', collectEase.toFixed(4))
+      section.style.setProperty('--folder-close-progress', closeEase.toFixed(4))
+      section.style.setProperty('--folder-text-progress', folderTextEase.toFixed(4))
       section.style.setProperty('--prism-opacity', String(1 - nextProgress))
       section.style.setProperty(
         '--folder-glow-play-state',
@@ -121,6 +159,7 @@ export default function LightFolderSection() {
 
     return () => {
       if (frameId) window.cancelAnimationFrame(frameId)
+      if (captionTimeoutRef.current) window.clearTimeout(captionTimeoutRef.current)
       window.removeEventListener('scroll', requestUpdate)
       window.removeEventListener('resize', requestUpdate)
     }
@@ -183,40 +222,56 @@ export default function LightFolderSection() {
           ref={folderRef}
           className='absolute z-40'
           style={{
-            left: 50.5,
+            left: 'var(--prism-folder-left, 50.5px)',
             top: 871,
-            width: 274,
-            height: 210,
-            transform: `translate3d(${87 - 50.5}px, ${916 - 871}px, 0) scale(${202 / 274}, ${
-              156 / 210
-            })`,
+            width: 'var(--prism-folder-width, 274px)',
+            height: 'var(--prism-folder-height, 210px)',
+            transform:
+              'translate3d(var(--prism-folder-start-x, 36.5px), var(--prism-folder-start-y, 45px), 0) scale(var(--prism-folder-start-scale-x, 0.7372), var(--prism-folder-start-scale-y, 0.7429))',
             transformOrigin: 'top left',
             willChange: 'transform',
           }}
         >
           <div
             className='absolute inset-0'
-            style={{ opacity: 'calc(1 - var(--collect-ease, 0))', willChange: 'opacity' }}
+            style={{
+              opacity: 'calc(1 - var(--folder-close-progress, 0))',
+              willChange: 'opacity',
+            }}
           >
             <Image
               src='/images/folder/folder_m_btm.svg'
               alt=''
               fill
               sizes='274px'
-              className='object-contain'
+              className='prism-folder-open-btm-mobile object-contain'
             />
             <Image
               src='/images/folder/folder_m_open.svg'
               alt=''
               width={230}
               height={117}
-              className='absolute left-[-16px] top-[40px] max-w-none'
+              className='prism-folder-open-top-mobile absolute left-[-16px] top-[40px] max-w-none'
+            />
+            <Image
+              src='/images/folder/folder_l_btm.png'
+              alt=''
+              width={326}
+              height={285}
+              className='prism-folder-open-btm-desktop absolute max-w-none'
+            />
+            <Image
+              src='/images/folder/folder_l_open.svg'
+              alt=''
+              width={380}
+              height={193}
+              className='prism-folder-open-top-desktop absolute max-w-none'
             />
           </div>
 
           <div
             className='absolute left-1/2 top-0 z-0 h-full w-full -translate-x-1/2'
-            style={{ opacity: 'var(--collect-ease, 0)', willChange: 'opacity' }}
+            style={{ opacity: 'var(--folder-close-progress, 0)', willChange: 'opacity' }}
           >
             <Image
               src='/images/folder/folder_l_btm.png'
@@ -232,8 +287,17 @@ export default function LightFolderSection() {
             alt=''
             fill
             sizes='274px'
-            className='relative z-20 object-contain'
-            style={{ opacity: 'var(--collect-ease, 0)', willChange: 'opacity' }}
+            className='prism-folder-close-mobile relative z-20 object-contain'
+            style={{ opacity: 'var(--folder-close-progress, 0)', willChange: 'opacity' }}
+          />
+
+          <Image
+            src='/images/folder/folder_l_close.svg'
+            alt=''
+            fill
+            sizes='570px'
+            className='prism-folder-close-desktop relative z-20 object-fill'
+            style={{ opacity: 'var(--folder-close-progress, 0)', willChange: 'opacity' }}
           />
 
           <FolderRandomText />
@@ -281,7 +345,7 @@ function FolderRandomText() {
   return (
     <div
       className='absolute left-1/2 top-[62px] z-50 w-[226px] -translate-x-1/2 text-c1 text-black'
-      style={{ opacity: 'var(--collect-ease, 0)', willChange: 'opacity' }}
+      style={{ opacity: 'var(--folder-text-progress, 0)', willChange: 'opacity' }}
     >
       흩어진
       <span className='inline-flex items-center gap-2 text-c2'>

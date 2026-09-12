@@ -15,9 +15,18 @@
 
 .collect-caption {
   top: 1106px;
+  opacity: var(--collect-caption-progress, 0);
+  transition: opacity 700ms ease;
   font-size: 28px;
   font-weight: 700;
   line-height: 1.45;
+  will-change: opacity;
+}
+
+.prism-folder-open-btm-desktop,
+.prism-folder-open-top-desktop,
+.prism-folder-close-desktop {
+  display: none;
 }
 
 .folder-panel-glow {
@@ -188,6 +197,39 @@
 
 @media (min-width: 1280px) {
   .prism-section {
+    --prism-folder-left: 60.833px;
+    --prism-folder-width: 253.333px;
+    --prism-folder-height: 193.333px;
+    --prism-folder-start-x: 0px;
+    --prism-folder-start-y: 0px;
+    --prism-folder-start-scale-x: 1;
+    --prism-folder-start-scale-y: 1;
     height: calc(2772px + 100vh);
+  }
+
+  .prism-folder-open-btm-mobile,
+  .prism-folder-open-top-mobile,
+  .prism-folder-close-mobile {
+    display: none;
+  }
+
+  .prism-folder-open-btm-desktop {
+    display: block;
+    left: 18px;
+    top: 0;
+    width: 217.333px;
+    height: 190px;
+  }
+
+  .prism-folder-open-top-desktop {
+    display: block;
+    left: 0;
+    top: 63.222px;
+    width: 253.333px;
+    height: 128.667px;
+  }
+
+  .prism-folder-close-desktop {
+    display: block;
   }
 }
