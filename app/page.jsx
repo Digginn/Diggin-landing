@@ -54,7 +54,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className='flex w-full flex-col items-center gap-[52px] min-[744px]:gap-[78px] min-[1280px]:gap-[104px]'>
+          <div className='flex w-full flex-col items-center gap-[24px] min-[744px]:gap-[78px] min-[1280px]:gap-[104px]'>
             <div className='flex flex-col items-center gap-6 min-[744px]:gap-9 min-[1280px]:gap-12'>
               <div className='landing-folder-icon relative h-20 w-[120px]'>
                 <div
