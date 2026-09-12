@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Input from '@/app/components/Input'
+import PreRegistrationCompleteModal from '@/app/components/PreRegistrationCompleteModal'
 import PrivacyAgreementModal from '@/app/components/PrivacyAgreementModal'
 
 function getPhoneError(value) {
@@ -31,8 +32,8 @@ export default function LaunchNotificationForm() {
   const [hasBlurredPhone, setHasBlurredPhone] = useState(false)
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitMessage, setSubmitMessage] = useState('')
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
+  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false)
   const [responsiveMode, setResponsiveMode] = useState({ inputSize: 's' })
   const isPhoneReady = getPhoneError(phone) === ''
   const canTrySubmit = isPhoneReady && !isSubmitting
@@ -48,7 +49,6 @@ export default function LaunchNotificationForm() {
 
   const handlePhoneChange = (next) => {
     setPhone(next)
-    setSubmitMessage('')
     const err = getPhoneError(next)
     if (hasBlurredPhone || hasTriedSubmit) setPhoneError(err)
     setAgreementError(!err && hasTriedSubmit && !agreed ? AGREEMENT_ERROR : '')
@@ -63,7 +63,6 @@ export default function LaunchNotificationForm() {
   const handleAgreementToggle = () => {
     const next = !agreed
     setAgreed(next)
-    setSubmitMessage('')
     setAgreementError(!next && isPhoneReady && hasTriedSubmit ? AGREEMENT_ERROR : '')
   }
 
@@ -73,7 +72,6 @@ export default function LaunchNotificationForm() {
 
   const handleSubmit = async () => {
     setHasTriedSubmit(true)
-    setSubmitMessage('')
     const err = getPhoneError(phone)
     setPhoneError(err)
     setAgreementError(!err && !agreed ? AGREEMENT_ERROR : '')
@@ -105,7 +103,7 @@ export default function LaunchNotificationForm() {
 
       setPhoneError('')
       setAgreementError('')
-      setSubmitMessage(data.message ?? '출시 알림 신청이 완료됐어요.')
+      setIsCompleteModalOpen(true)
     } catch {
       setPhoneError('저장 중 문제가 생겼어요. 잠시 후 다시 시도해주세요.')
     } finally {
@@ -129,11 +127,6 @@ export default function LaunchNotificationForm() {
         {agreementError ? (
           <p className='w-[324px] px-5 text-[12px] font-medium leading-[1.3] tracking-[0.24px] text-[#ff383c] min-[744px]:w-[486px] min-[744px]:px-[30px] min-[744px]:text-[18px] min-[744px]:tracking-[0.36px] min-[1280px]:w-[648px] min-[1280px]:px-10 min-[1280px]:text-[24px] min-[1280px]:tracking-[0.48px]'>
             {agreementError}
-          </p>
-        ) : null}
-        {submitMessage ? (
-          <p className='w-[324px] px-5 text-[12px] font-medium leading-[1.3] tracking-[0.24px] text-gray-300 min-[744px]:w-[486px] min-[744px]:px-[30px] min-[744px]:text-[18px] min-[744px]:tracking-[0.36px] min-[1280px]:w-[648px] min-[1280px]:px-10 min-[1280px]:text-[24px] min-[1280px]:tracking-[0.48px]'>
-            {submitMessage}
           </p>
         ) : null}
         <div className='flex w-[355px] items-center gap-0.5 min-[744px]:w-[532.5px] min-[744px]:gap-[3px] min-[1280px]:w-[710px] min-[1280px]:gap-1'>
@@ -180,6 +173,10 @@ export default function LaunchNotificationForm() {
           setAgreed(true)
           setAgreementError('')
         }}
+      />
+      <PreRegistrationCompleteModal
+        open={isCompleteModalOpen}
+        onClose={() => setIsCompleteModalOpen(false)}
       />
     </>
   )
