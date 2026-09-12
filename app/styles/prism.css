@@ -29,9 +29,16 @@
   display: none;
 }
 
+.prism-folder-open-top-mobile {
+  left: var(--folder-open-top-left, -21.704px);
+  top: var(--folder-open-top-top, 53.846px);
+  width: var(--folder-open-top-width, 312.0px);
+  height: var(--folder-open-top-height, 156.154px);
+}
+
 .folder-stored-products {
   opacity: calc(var(--folder-text-progress, 0) * 0.42);
-  filter: blur(0.7px);
+  filter: blur(2px);
 }
 
 .folder-stored-products-desktop {

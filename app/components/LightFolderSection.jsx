@@ -174,6 +174,13 @@ export default function LightFolderSection() {
 
       const { translateX, translateY, scaleX, scaleY } = getFolderTransform(collectEase)
 
+      if (window.innerWidth < 1280) {
+        folder.style.setProperty('--folder-open-top-left', `${(-16 / scaleX).toFixed(3)}px`)
+        folder.style.setProperty('--folder-open-top-top', `${(40 / scaleY).toFixed(3)}px`)
+        folder.style.setProperty('--folder-open-top-width', `${(230 / scaleX).toFixed(3)}px`)
+        folder.style.setProperty('--folder-open-top-height', `${(116 / scaleY).toFixed(3)}px`)
+      }
+
       folder.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scaleX}, ${scaleY})`
     }
 
@@ -340,7 +347,7 @@ export default function LightFolderSection() {
               alt=''
               fill
               sizes='274px'
-              className='prism-folder-open-btm-mobile object-contain'
+              className='prism-folder-open-btm-mobile object-fill'
             />
             <Image
               src='/images/folder/folder_m_open.svg'
