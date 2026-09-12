@@ -123,6 +123,24 @@ export default function LightFolderSection() {
 
   useEffect(() => {
     let frameId = 0
+    let cachedSectionTop = 0
+    let cachedSectionHeight = 0
+    let cachedPrismScale = 1
+    let cachedStart = 0
+    let cachedEnd = 0
+
+    const cacheLayout = () => {
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      cachedSectionTop = rect.top + window.scrollY
+      cachedSectionHeight = rect.height
+      cachedPrismScale = getPrismScale()
+      cachedStart = -80 * cachedPrismScale
+      const collectedFolderCenterY = (871 + 210 / 2) * cachedPrismScale
+      cachedEnd = window.innerHeight / 2 - collectedFolderCenterY
+      section.style.setProperty('--prism-stage-sticky-top', `${cachedEnd}px`)
+    }
 
     const updateProductCards = (collectEase) => {
       if (!productCardsRef.current) {
@@ -162,12 +180,12 @@ export default function LightFolderSection() {
       const section = sectionRef.current
       if (!section) return
 
-      const { top, bottom: sectionBottom } = section.getBoundingClientRect()
-      const prismScale = getPrismScale()
-      const start = -80 * prismScale
-      const collectedFolderCenterY = (871 + 210 / 2) * prismScale
-      const end = window.innerHeight / 2 - collectedFolderCenterY
-      section.style.setProperty('--prism-stage-sticky-top', `${end}px`)
+      const scrollY = window.scrollY
+      const top = cachedSectionTop - scrollY
+      const sectionBottom = cachedSectionTop + cachedSectionHeight - scrollY
+      const prismScale = cachedPrismScale
+      const start = cachedStart
+      const end = cachedEnd
       const nextProgress = Math.min(1, Math.max(0, (start - top) / (start - end)))
 
       // freeze 끝나는 시점에 sticky → relative 전환 (snap 없이 자연 스크롤)
@@ -232,15 +250,21 @@ export default function LightFolderSection() {
       frameId = window.requestAnimationFrame(updateProgress)
     }
 
+    const handleResize = () => {
+      cacheLayout()
+      requestUpdate()
+    }
+
+    cacheLayout()
     requestUpdate()
     window.addEventListener('scroll', requestUpdate, { passive: true })
-    window.addEventListener('resize', requestUpdate)
+    window.addEventListener('resize', handleResize)
 
     return () => {
       if (frameId) window.cancelAnimationFrame(frameId)
       if (captionTimeoutRef.current) window.clearTimeout(captionTimeoutRef.current)
       window.removeEventListener('scroll', requestUpdate)
-      window.removeEventListener('resize', requestUpdate)
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
 
@@ -276,6 +300,7 @@ export default function LightFolderSection() {
                 collectMoveY={collectTarget.y - (item.top + cardHeight / 2)}
                 collectFinalOpacity={collectedState?.opacity ?? 0}
                 collectFinalScale={collectedState ? 1 : 0.36}
+                eager
               />
             )
           })}
@@ -418,7 +443,7 @@ function StoredProductLayer({ className, products }) {
       style={{ willChange: 'opacity' }}
     >
       {products.map((product) => (
-        <ProductCard key={product.src} {...product} collectable={false} />
+        <ProductCard key={product.src} {...product} collectable={false} eager />
       ))}
     </div>
   )

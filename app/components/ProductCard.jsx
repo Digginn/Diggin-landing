@@ -20,6 +20,7 @@ export default function ProductCard({
   collectMoveY = 0,
   collectFinalOpacity = 0.46,
   collectFinalScale = 0.52,
+  eager = false,
 }) {
   const icon = action === 'heart' ? '/icons/live_area.svg' : '/icons/live_area-6.svg'
   const cardWidth = width ?? size
@@ -74,7 +75,7 @@ export default function ProductCard({
             style={crop}
           />
         ) : (
-          <Image src={src} alt='' fill sizes={`${imageWidth}px`} className='object-contain' />
+          <Image src={src} alt='' fill sizes={`${imageWidth}px`} className='object-contain' loading={eager ? 'eager' : 'lazy'} />
         )}
       </div>
       {action ? (
