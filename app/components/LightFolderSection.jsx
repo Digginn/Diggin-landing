@@ -201,8 +201,7 @@ export default function LightFolderSection() {
             // relativeTop = end - sectionTop (section이 stage의 기준점이므로)
             stageEl.style.top = `${end - top}px`
           }
-        } else if (naturalScrollRef.current && nextProgress < 0.95) {
-          // 충분히 위로 스크롤한 경우에만 sticky 복귀 (경계값 진동 방지)
+        } else if (naturalScrollRef.current && sectionBottom > stickyCutoff + 4) {
           naturalScrollRef.current = false
           stageEl.style.position = ''
           stageEl.style.top = ''
