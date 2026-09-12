@@ -5,6 +5,7 @@ import DesktopTopPlusMarkers from '@/app/components/DesktopTopPlusMarkers'
 import LaunchNotificationForm from '@/app/components/LaunchNotificationForm'
 import LightFolderSection from '@/app/components/LightFolderSection'
 import SurveySection from '@/app/components/SurveySection'
+import Footer from '@/app/components/Footer'
 
 export default function Home() {
   return (
@@ -83,7 +84,7 @@ export default function Home() {
         </div>
 
         <LightFolderSection />
-        <SurveySection />
+        <Footer />
       </div>
     </main>
   )
