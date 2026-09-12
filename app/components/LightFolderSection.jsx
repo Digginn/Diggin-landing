@@ -35,6 +35,102 @@ function getFolderTransform(collectEase) {
   }
 }
 
+const FOLDER_STORED_PRODUCTS_BASE = [
+  {
+    src: '/images/items/item-decor.png',
+    left: 44,
+    top: 20,
+    width: 78,
+    height: 79,
+    imageBox: { x: 8, y: 8, width: 55.2, height: 60 },
+    crop: { left: '-461.33%', top: '-229.45%', width: '682.67%', height: '342.94%' },
+  },
+  {
+    src: '/images/items/item-notebook.png',
+    left: 134,
+    top: 48,
+    width: 83.7,
+    height: 84.5,
+    imageBox: { x: 21, y: 16, width: 42, height: 63 },
+    crop: { left: '-1031.82%', top: '-378.85%', width: '1340.91%', height: '488%' },
+  },
+  {
+    src: '/images/items/item-tshirt.png',
+    left: 49.8,
+    top: 74.7,
+    width: 94.9,
+    height: 95.8,
+    imageBox: { x: 7.2, y: 14.3, width: 80, height: 67 },
+    crop: { left: '-248%', top: '-228.62%', width: '590%', height: '383.43%' },
+  },
+  {
+    src: '/images/items/item-bag-coat.png',
+    left: 137,
+    top: 77,
+    width: 120,
+    height: 121.1,
+    imageBox: { x: 11, y: 17.5, width: 98, height: 85 },
+    crop: { left: '-7.9%', top: '-5.96%', width: '279.02%', height: '175.24%' },
+  },
+  {
+    src: '/images/items/item-terrarium.png',
+    left: 18,
+    top: 107,
+    width: 83.2,
+    height: 84,
+    imageBox: { x: 16, y: 14.5, width: 52, height: 55 },
+    crop: { left: '-229.12%', top: '-10%', width: '562.64%', height: '294.21%' },
+  },
+]
+
+const FOLDER_STORED_PRODUCTS_DESKTOP = [
+  {
+    src: '/images/items/item-decor.png',
+    left: 34.4,
+    top: 8,
+    width: 78,
+    height: 79,
+    imageBox: { x: 8, y: 8, width: 55.2, height: 60 },
+    crop: { left: '-461.33%', top: '-229.45%', width: '682.67%', height: '342.94%' },
+  },
+  {
+    src: '/images/items/item-notebook.png',
+    left: 124.4,
+    top: 36,
+    width: 83.7,
+    height: 84.5,
+    imageBox: { x: 21, y: 16, width: 42, height: 63 },
+    crop: { left: '-1031.82%', top: '-378.85%', width: '1340.91%', height: '488%' },
+  },
+  {
+    src: '/images/items/item-tshirt.png',
+    left: 40.2,
+    top: 62.7,
+    width: 94.9,
+    height: 95.8,
+    imageBox: { x: 7.2, y: 14.3, width: 80, height: 67 },
+    crop: { left: '-248%', top: '-228.62%', width: '590%', height: '383.43%' },
+  },
+  {
+    src: '/images/items/item-bag-coat.png',
+    left: 127.5,
+    top: 65,
+    width: 120,
+    height: 121.1,
+    imageBox: { x: 11, y: 17.5, width: 98, height: 85 },
+    crop: { left: '-7.9%', top: '-5.96%', width: '279.02%', height: '175.24%' },
+  },
+  {
+    src: '/images/items/item-terrarium.png',
+    left: 8.4,
+    top: 95,
+    width: 83.2,
+    height: 84,
+    imageBox: { x: 16, y: 14.5, width: 52, height: 55 },
+    crop: { left: '-229.12%', top: '-10%', width: '562.64%', height: '294.21%' },
+  },
+]
+
 export default function LightFolderSection() {
   const sectionRef = useRef(null)
   const stageRef = useRef(null)
@@ -300,6 +396,7 @@ export default function LightFolderSection() {
             style={{ opacity: 'var(--folder-close-progress, 0)', willChange: 'opacity' }}
           />
 
+          <FolderStoredProducts />
           <FolderRandomText />
         </div>
 
@@ -313,6 +410,34 @@ export default function LightFolderSection() {
         </div>
       </div>
     </section>
+  )
+}
+
+function FolderStoredProducts() {
+  return (
+    <>
+      <StoredProductLayer
+        className='folder-stored-products-base'
+        products={FOLDER_STORED_PRODUCTS_BASE}
+      />
+      <StoredProductLayer
+        className='folder-stored-products-desktop'
+        products={FOLDER_STORED_PRODUCTS_DESKTOP}
+      />
+    </>
+  )
+}
+
+function StoredProductLayer({ className, products }) {
+  return (
+    <div
+      className={`folder-stored-products ${className} pointer-events-none absolute inset-0 z-30`}
+      style={{ willChange: 'opacity' }}
+    >
+      {products.map((product) => (
+        <ProductCard key={product.src} {...product} collectable={false} />
+      ))}
+    </div>
   )
 }
 
@@ -344,13 +469,13 @@ function FolderRandomText() {
 
   return (
     <div
-      className='absolute left-1/2 top-[62px] z-50 w-[226px] -translate-x-1/2 text-c1 text-black'
+      className='folder-random-text absolute left-1/2 top-[62px] z-50 w-[226px] -translate-x-1/2 text-c1 text-black'
       style={{ opacity: 'var(--folder-text-progress, 0)', willChange: 'opacity' }}
     >
       흩어진
-      <span className='inline-flex items-center gap-2 text-c2'>
+      <span className='folder-random-paren inline-flex items-center gap-2 text-c2'>
         (
-        <span className='relative inline-block h-11 w-8 align-middle'>
+        <span className='folder-random-item relative inline-block h-11 w-8 align-middle'>
           <Image
             src={randomItem1.src}
             alt={randomItem1.alt}
@@ -363,9 +488,9 @@ function FolderRandomText() {
       </span>
       <br />
       취향
-      <span className='inline-flex items-center gap-2 text-c2'>
+      <span className='folder-random-paren inline-flex items-center gap-2 text-c2'>
         (
-        <span className='relative inline-block h-11 w-8 align-middle'>
+        <span className='folder-random-item relative inline-block h-11 w-8 align-middle'>
           <Image
             src={randomItem2.src}
             alt={randomItem2.alt}

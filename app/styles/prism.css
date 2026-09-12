@@ -29,6 +29,20 @@
   display: none;
 }
 
+.folder-stored-products {
+  opacity: calc(var(--folder-text-progress, 0) * 0.42);
+  filter: blur(0.7px);
+}
+
+.folder-stored-products-desktop {
+  display: none;
+}
+
+.folder-random-text {
+  top: 64px;
+  letter-spacing: 0;
+}
+
 .folder-panel-glow {
   animation: folder-panel-glow 8s linear infinite;
   animation-play-state: var(--folder-glow-play-state, running);
@@ -231,5 +245,32 @@
 
   .prism-folder-close-desktop {
     display: block;
+  }
+
+  .folder-stored-products-base {
+    display: none;
+  }
+
+  .folder-stored-products-desktop {
+    display: block;
+  }
+
+  .folder-random-text {
+    top: 60.444px;
+    width: 200.889px;
+    font-size: 24.889px;
+    line-height: 1.45;
+    letter-spacing: 0;
+  }
+
+  .folder-random-paren {
+    gap: 7.111px;
+    font-size: 24.889px;
+    line-height: 1.45;
+  }
+
+  .folder-random-item {
+    width: 28.444px;
+    height: 39.111px;
   }
 }

@@ -15,6 +15,7 @@ export default function ProductCard({
   imageBox,
   crop,
   sourceSize,
+  collectable = true,
   collectMoveX = 0,
   collectMoveY = 0,
   collectFinalOpacity = 0.46,
@@ -28,15 +29,20 @@ export default function ProductCard({
   const imageLeft = imageBox?.x ?? (cardWidth - imageWidth) / 2
   const imageTop = imageBox?.y ?? (cardHeight - imageHeight) / 2
   const resolvedActionSize = actionSize ?? Math.round(Math.min(cardWidth, cardHeight) * 0.26)
+  const collectProps = collectable
+    ? {
+        'data-collect-card': true,
+        'data-move-x': collectMoveX,
+        'data-move-y': collectMoveY,
+        'data-final-opacity': collectFinalOpacity,
+        'data-final-scale': collectFinalScale,
+      }
+    : {}
 
   return (
     <div
       className='collect-product-card absolute z-20 rounded-[6px] border border-white/30 bg-gradient-to-b from-white/[0.42] to-white/[0.09] shadow-[inset_0_1px_1px_rgba(255,255,255,0.24)]'
-      data-collect-card
-      data-move-x={collectMoveX}
-      data-move-y={collectMoveY}
-      data-final-opacity={collectFinalOpacity}
-      data-final-scale={collectFinalScale}
+      {...collectProps}
       style={{
         left,
         top,
