@@ -37,35 +37,35 @@ function getFolderTransform(collectEase) {
 
 const FOLDER_STORED_PRODUCTS_BASE = [
   {
-    src: '/images/items/random/random_2.png',
+    src: '/images/items/random/optimized/random_2.webp',
     left: 44,
     top: 20,
     width: 78,
     height: 79,
   },
   {
-    src: '/images/items/folder-items/image 1666.png',
+    src: '/images/items/folder-items/optimized/image 1666.webp',
     left: 134,
     top: 48,
     width: 83.7,
     height: 84.5,
   },
   {
-    src: '/images/items/folder-items/image_monstertshirts.png',
+    src: '/images/items/folder-items/optimized/image_monstertshirts.webp',
     left: 49.8,
     top: 74.7,
     width: 94.9,
     height: 95.8,
   },
   {
-    src: '/images/items/folder-items/image_bagandsuite.png',
+    src: '/images/items/folder-items/optimized/image_bagandsuite.webp',
     left: 137,
     top: 77,
     width: 120,
     height: 121.1,
   },
   {
-    src: '/images/items/folder-items/image 362.png',
+    src: '/images/items/folder-items/optimized/image 362.webp',
     left: 18,
     top: 107,
     width: 83.2,
@@ -75,35 +75,35 @@ const FOLDER_STORED_PRODUCTS_BASE = [
 
 const FOLDER_STORED_PRODUCTS_DESKTOP = [
   {
-    src: '/images/items/random/random_2.png',
+    src: '/images/items/random/optimized/random_2.webp',
     left: 34.4,
     top: 8,
     width: 78,
     height: 79,
   },
   {
-    src: '/images/items/folder-items/image 1666.png',
+    src: '/images/items/folder-items/optimized/image 1666.webp',
     left: 124.4,
     top: 36,
     width: 83.7,
     height: 84.5,
   },
   {
-    src: '/images/items/folder-items/image_monstertshirts.png',
+    src: '/images/items/folder-items/optimized/image_monstertshirts.webp',
     left: 40.2,
     top: 62.7,
     width: 94.9,
     height: 95.8,
   },
   {
-    src: '/images/items/folder-items/image_bagandsuite.png',
+    src: '/images/items/folder-items/optimized/image_bagandsuite.webp',
     left: 127.5,
     top: 65,
     width: 120,
     height: 121.1,
   },
   {
-    src: '/images/items/folder-items/image 362.png',
+    src: '/images/items/folder-items/optimized/image 362.webp',
     left: 8.4,
     top: 95,
     width: 83.2,
