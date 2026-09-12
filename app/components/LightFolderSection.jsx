@@ -19,6 +19,7 @@ function getPrismScale() {
 
 export default function LightFolderSection() {
   const sectionRef = useRef(null)
+  const stageRef = useRef(null)
   const folderRef = useRef(null)
   const productCardsRef = useRef(null)
   const progressRef = useRef(-1)
@@ -67,12 +68,33 @@ export default function LightFolderSection() {
       const section = sectionRef.current
       if (!section) return
 
-      const { top } = section.getBoundingClientRect()
+      const { top, bottom: sectionBottom } = section.getBoundingClientRect()
       const prismScale = getPrismScale()
       const start = -80 * prismScale
       const collectedFolderCenterY = (871 + 210 / 2) * prismScale
       const end = window.innerHeight / 2 - collectedFolderCenterY
+      section.style.setProperty('--prism-stage-sticky-top', `${end}px`)
       const nextProgress = Math.min(1, Math.max(0, (start - top) / (start - end)))
+
+      // footer가 뷰포트 아래에서 올라올 때 stage를 fade out
+      const stageEl = stageRef.current
+      if (stageEl) {
+        if (nextProgress >= 1) {
+          const stickyCutoff = end + 1232
+          const fadeStart = window.innerHeight
+          if (sectionBottom >= fadeStart) {
+            stageEl.style.opacity = '1'
+          } else if (sectionBottom > stickyCutoff) {
+            const t = (sectionBottom - stickyCutoff) / (fadeStart - stickyCutoff)
+            stageEl.style.opacity = String(t)
+          } else {
+            stageEl.style.opacity = '0'
+          }
+        } else {
+          stageEl.style.opacity = ''
+        }
+      }
+
       const collectEase = 1 - (1 - nextProgress) ** 3
 
       if (Math.abs(progressRef.current - nextProgress) < 0.002) return
@@ -109,9 +131,7 @@ export default function LightFolderSection() {
 
   return (
     <section ref={sectionRef} className='prism-section relative z-10 overflow-visible bg-gray-900'>
-      <div className='prism-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent' />
-
-      <div className='prism-stage relative z-30 mx-auto h-[1232px] w-[375px]'>
+      <div ref={stageRef} className='prism-stage z-30 mx-auto h-[1232px] w-[375px]'>
         <PrismLight />
 
         <div className='absolute inset-x-0 top-0 z-20 h-[1080px]'>
@@ -219,13 +239,15 @@ export default function LightFolderSection() {
 
           <FolderRandomText />
         </div>
-      </div>
 
-      <div className='collect-caption pointer-events-none absolute inset-x-0 z-50 text-center text-white'>
-        <p>
-          <span className='text-rainbow-glow'>고민</span>도 쇼핑의{' '}
-          <span className='text-rainbow-glow'>일부</span>니까
-        </p>
+        <div className='prism-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent' />
+
+        <div className='collect-caption pointer-events-none absolute inset-x-0 z-50 text-center text-white'>
+          <p>
+            <span className='text-rainbow-glow'>고민</span>도 쇼핑의{' '}
+            <span className='text-rainbow-glow'>일부</span>니까
+          </p>
+        </div>
       </div>
     </section>
   )

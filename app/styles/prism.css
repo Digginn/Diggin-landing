@@ -1,19 +1,21 @@
 .prism-section {
-  height: 1232px;
+  height: calc(1232px + 100vh);
 }
 
 .prism-bottom-fade {
-  height: calc(268px * var(--prism-stage-scale));
+  height: 268px;
 }
 
 .prism-stage {
+  position: sticky;
+  top: var(--prism-stage-sticky-top, 0);
   transform: scale(var(--prism-stage-scale));
   transform-origin: top center;
 }
 
 .collect-caption {
-  top: calc(1106px * var(--prism-stage-scale));
-  font-size: calc(28px * var(--prism-stage-scale));
+  top: 1106px;
+  font-size: 28px;
   font-weight: 700;
   line-height: 1.45;
 }
@@ -180,12 +182,12 @@
 
 @media (min-width: 744px) {
   .prism-section {
-    height: 1848px;
+    height: calc(1848px + 100vh);
   }
 }
 
 @media (min-width: 1280px) {
   .prism-section {
-    height: 2772px;
+    height: calc(2772px + 100vh);
   }
 }

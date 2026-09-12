@@ -9,7 +9,7 @@ import Footer from '@/app/components/Footer'
 
 export default function Home() {
   return (
-    <main className='min-h-screen overflow-x-hidden bg-gray-900 font-sans'>
+    <main className='min-h-screen overflow-x-clip bg-gray-900 font-sans'>
       <div className='landing-page mx-auto min-h-screen w-full overflow-visible bg-gray-900'>
         <div className='landing-top-visual relative h-[244px] overflow-hidden'>
           <div className='absolute left-1/2 h-[300px] w-[442px] -translate-x-1/2 -top-8 min-[744px]:h-[358px] min-[744px]:w-[811px] min-[744px]:-top-[114px] min-[1280px]:h-[460px] min-[1280px]:w-[1300px] min-[1280px]:-top-44'>
