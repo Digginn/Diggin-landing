@@ -23,6 +23,7 @@ export default function LightFolderSection() {
   const folderRef = useRef(null)
   const productCardsRef = useRef(null)
   const progressRef = useRef(-1)
+  const naturalScrollRef = useRef(false)
 
   useEffect(() => {
     let frameId = 0
@@ -76,22 +77,20 @@ export default function LightFolderSection() {
       section.style.setProperty('--prism-stage-sticky-top', `${end}px`)
       const nextProgress = Math.min(1, Math.max(0, (start - top) / (start - end)))
 
-      // footer가 뷰포트 아래에서 올라올 때 stage를 fade out
+      // freeze 끝나는 시점에 sticky → relative 전환 (snap 없이 자연 스크롤)
       const stageEl = stageRef.current
       if (stageEl) {
-        if (nextProgress >= 1) {
-          const stickyCutoff = end + 1232
-          const fadeStart = window.innerHeight
-          if (sectionBottom >= fadeStart) {
-            stageEl.style.opacity = '1'
-          } else if (sectionBottom > stickyCutoff) {
-            const t = (sectionBottom - stickyCutoff) / (fadeStart - stickyCutoff)
-            stageEl.style.opacity = String(t)
-          } else {
-            stageEl.style.opacity = '0'
+        const stickyCutoff = end + 1232 * prismScale
+        if (nextProgress >= 1 && sectionBottom <= stickyCutoff) {
+          if (!naturalScrollRef.current) {
+            naturalScrollRef.current = true
+            stageEl.style.position = 'relative'
+            stageEl.style.top = `${window.innerHeight}px`
           }
-        } else {
-          stageEl.style.opacity = ''
+        } else if (naturalScrollRef.current) {
+          naturalScrollRef.current = false
+          stageEl.style.position = ''
+          stageEl.style.top = ''
         }
       }
 
