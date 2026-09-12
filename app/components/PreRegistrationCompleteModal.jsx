@@ -46,7 +46,12 @@ export default function PreRegistrationCompleteModal({ open, onClose }) {
             </div>
 
             <div className='success-modal-icon' aria-hidden='true'>
-              <Image src='/logo/app-icon-grad.svg' alt='' fill sizes='65px' />
+              <Image
+                src='/logo/app-icon-grad.svg'
+                alt=''
+                fill
+                sizes='(min-width: 1280px) 130px, (min-width: 744px) 97.5px, 65px'
+              />
             </div>
 
             <p className='success-modal-description'>

@@ -294,6 +294,51 @@
     font-size: 24px;
     letter-spacing: -0.48px;
   }
+
+  .success-modal-panel {
+    width: 562.5px;
+    max-width: calc(100vw - 48px);
+    padding: 18px 24px 48px;
+    border-radius: 24px;
+  }
+
+  .success-modal-content {
+    min-height: 552px;
+    padding-top: 60px;
+  }
+
+  .success-modal-copy {
+    gap: 52.5px;
+  }
+
+  .success-modal-title-group {
+    gap: 9px;
+  }
+
+  .success-modal-kicker {
+    font-size: 27px;
+  }
+
+  .success-modal-title {
+    font-size: 42px;
+  }
+
+  .success-modal-icon {
+    width: 97.5px;
+    height: 97.5px;
+  }
+
+  .success-modal-description {
+    padding: 0 30px;
+    font-size: 27px;
+  }
+
+  .success-modal-button {
+    width: 454.5px;
+    height: 60px;
+    font-size: 24px;
+    letter-spacing: -0.48px;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -355,6 +400,51 @@
   }
 
   .modal-agree {
+    width: 606px;
+    height: 80px;
+    font-size: 32px;
+    letter-spacing: -0.64px;
+  }
+
+  .success-modal-panel {
+    width: 750px;
+    max-width: calc(100vw - 64px);
+    padding: 24px 32px 64px;
+    border-radius: 32px;
+  }
+
+  .success-modal-content {
+    min-height: 736px;
+    padding-top: 80px;
+  }
+
+  .success-modal-copy {
+    gap: 70px;
+  }
+
+  .success-modal-title-group {
+    gap: 12px;
+  }
+
+  .success-modal-kicker {
+    font-size: 36px;
+  }
+
+  .success-modal-title {
+    font-size: 56px;
+  }
+
+  .success-modal-icon {
+    width: 130px;
+    height: 130px;
+  }
+
+  .success-modal-description {
+    padding: 0 40px;
+    font-size: 36px;
+  }
+
+  .success-modal-button {
     width: 606px;
     height: 80px;
     font-size: 32px;
