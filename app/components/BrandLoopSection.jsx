@@ -24,6 +24,7 @@ export default function BrandLoopSection() {
                 fill
                 sizes='(min-width: 1280px) 96px, (min-width: 744px) 72px, 48px'
                 className='object-cover'
+                loading='eager'
               />
             </div>
           ))}

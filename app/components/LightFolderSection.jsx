@@ -115,6 +115,7 @@ export default function LightFolderSection() {
   const sectionRef = useRef(null)
   const stageRef = useRef(null)
   const folderRef = useRef(null)
+  const prismFieldRef = useRef(null)
   const productCardsRef = useRef(null)
   const progressRef = useRef(-1)
   const naturalScrollRef = useRef(false)
@@ -235,7 +236,10 @@ export default function LightFolderSection() {
       section.style.setProperty('--collect-ease', collectEase.toFixed(4))
       section.style.setProperty('--folder-close-progress', closeEase.toFixed(4))
       section.style.setProperty('--folder-text-progress', folderTextEase.toFixed(4))
-      section.style.setProperty('--prism-opacity', String(1 - nextProgress))
+      if (!prismFieldRef.current) {
+        prismFieldRef.current = sectionRef.current?.querySelector('.prism-light-field') ?? null
+      }
+      if (prismFieldRef.current) prismFieldRef.current.style.opacity = String(1 - nextProgress)
       section.style.setProperty(
         '--folder-glow-play-state',
         nextProgress > 0.96 ? 'running' : 'paused',
