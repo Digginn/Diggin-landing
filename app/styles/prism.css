@@ -11,6 +11,7 @@
   top: var(--prism-stage-sticky-top, 0);
   transform: scale(var(--prism-stage-scale));
   transform-origin: top center;
+  overflow-anchor: none;
 }
 
 .collect-caption {
