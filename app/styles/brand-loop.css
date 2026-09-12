@@ -1,0 +1,57 @@
+.brand-loop {
+  --brand-loop-soft-edge: 188px;
+  --brand-loop-mid-edge: 156px;
+  --brand-loop-bright-edge: 104px;
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0 calc(50% - var(--brand-loop-soft-edge)),
+    rgba(0, 0, 0, 0.4) calc(50% - var(--brand-loop-mid-edge)),
+    #000 calc(50% - var(--brand-loop-bright-edge)) calc(50% + var(--brand-loop-bright-edge)),
+    rgba(0, 0, 0, 0.4) calc(50% + var(--brand-loop-mid-edge)),
+    rgba(0, 0, 0, 0.3) calc(50% + var(--brand-loop-soft-edge)) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0 calc(50% - var(--brand-loop-soft-edge)),
+    rgba(0, 0, 0, 0.4) calc(50% - var(--brand-loop-mid-edge)),
+    #000 calc(50% - var(--brand-loop-bright-edge)) calc(50% + var(--brand-loop-bright-edge)),
+    rgba(0, 0, 0, 0.4) calc(50% + var(--brand-loop-mid-edge)),
+    rgba(0, 0, 0, 0.3) calc(50% + var(--brand-loop-soft-edge)) 100%
+  );
+}
+
+.brand-loop-track {
+  --brand-loop-distance: 672px;
+  animation: brand-loop-scroll 28s linear infinite;
+}
+
+@keyframes brand-loop-scroll {
+  to {
+    transform: translate3d(calc(var(--brand-loop-distance) * -1), 0, 0);
+  }
+}
+
+@media (min-width: 744px) {
+  .brand-loop-track {
+    --brand-loop-distance: 1008px;
+  }
+
+  .brand-loop {
+    --brand-loop-soft-edge: 300px;
+    --brand-loop-mid-edge: 240px;
+    --brand-loop-bright-edge: 180px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .brand-loop-track {
+    --brand-loop-distance: 1344px;
+  }
+
+  .brand-loop {
+    --brand-loop-soft-edge: 420px;
+    --brand-loop-mid-edge: 340px;
+    --brand-loop-bright-edge: 260px;
+  }
+}

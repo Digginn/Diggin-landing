@@ -1,4 +1,8 @@
 import './globals.css'
+import './styles/landing.css'
+import './styles/prism.css'
+import './styles/brand-loop.css'
+import './styles/modal.css'
 
 export const metadata = {
   title: 'Diggin',
