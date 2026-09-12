@@ -7,7 +7,7 @@ import PrismLight from '@/app/components/PrismLight'
 import {
   COLLECTED_PRODUCT_STATES,
   PRISM_PRODUCTS,
-  RANDOM_ITEMS,
+  RANDOM_POOL,
 } from '@/app/data/landing'
 
 function getPrismScale() {
@@ -449,30 +449,30 @@ function StoredProductLayer({ className, products }) {
 }
 
 function FolderRandomText() {
-  const [randomIndexes, setRandomIndexes] = useState({ random1: 0, random2: 0 })
+  const [indexes, setIndexes] = useState([0, 1])
 
   useEffect(() => {
-    const pickNextIndex = (currentIndex, length) => {
-      if (length <= 1) return currentIndex
-      let nextIndex = currentIndex
-      while (nextIndex === currentIndex) {
-        nextIndex = Math.floor(Math.random() * length)
+    const pickNext = (current, exclude) => {
+      let next = current
+      while (next === current || next === exclude) {
+        next = Math.floor(Math.random() * RANDOM_POOL.length)
       }
-      return nextIndex
+      return next
     }
 
     const intervalId = window.setInterval(() => {
-      setRandomIndexes(({ random1, random2 }) => ({
-        random1: pickNextIndex(random1, RANDOM_ITEMS.random1.length),
-        random2: pickNextIndex(random2, RANDOM_ITEMS.random2.length),
-      }))
+      setIndexes(([i1, i2]) => {
+        const next1 = pickNext(i1, i2)
+        const next2 = pickNext(i2, next1)
+        return [next1, next2]
+      })
     }, 900)
 
     return () => window.clearInterval(intervalId)
   }, [])
 
-  const randomItem1 = RANDOM_ITEMS.random1[randomIndexes.random1]
-  const randomItem2 = RANDOM_ITEMS.random2[randomIndexes.random2]
+  const randomItem1 = RANDOM_POOL[indexes[0]]
+  const randomItem2 = RANDOM_POOL[indexes[1]]
 
   return (
     <div
