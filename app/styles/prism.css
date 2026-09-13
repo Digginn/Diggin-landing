@@ -81,8 +81,11 @@
   z-index: 10;
   overflow: visible;
   pointer-events: none;
-  transform: translateY(var(--prism-y, -30px))
-    scale(var(--prism-scale-x, 1), var(--prism-scale-y, 1));
+  --prism-folder-bottom-y: calc(871px + var(--prism-folder-height, 210px));
+  --prism-side-tail: 48.5px;
+  --prism-main-tail: 71px;
+  --prism-shade-tail: 47px;
+  transform: translateY(var(--prism-y, 0px)) scale(var(--prism-scale-x, 1), var(--prism-scale-y, 1));
   transform-origin: 50% 100%;
   will-change: transform, opacity;
 }
@@ -92,102 +95,53 @@
   backface-visibility: hidden;
 }
 
-.prism-svg {
+.prism-light-image,
+.prism-side-ray {
   display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
+  user-select: none;
 }
 
-.prism-side-light {
+.prism-light-image {
+  object-fit: fill;
+}
+
+.prism-side-ray {
   position: absolute;
-  top: -186.807px;
+  max-width: none;
+  pointer-events: none;
+  bottom: calc(1232px - var(--prism-folder-bottom-y) - var(--prism-side-tail));
   left: 50%;
-  width: max(875px, calc(100vw + 400px));
-  height: 1554px;
-  overflow: visible;
+  width: 583px;
+  height: 1153.5px;
   transform: translateX(-50%);
-}
-
-.prism-side-light-inner {
-  position: absolute;
-  top: 200px;
-  left: 50%;
-  width: clamp(375px, 58vw, 743px);
-  height: 1154px;
-  transform: translateX(-50%);
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0.12) 90px,
-    rgba(0, 0, 0, 0.42) 250px,
-    #000 430px,
-    #000 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0.12) 90px,
-    rgba(0, 0, 0, 0.42) 250px,
-    #000 430px,
-    #000 100%
-  );
-}
-
-
-
-.prism-side-light-base {
-  opacity: 0.9;
-  filter: blur(10px);
 }
 
 .prism-rectangle-63 {
   position: absolute;
-  top: -391.2px;
-  left: calc(50% - 261.155px);
-  width: 522.315px;
-  height: 1533.4px;
-  filter: blur(10px);
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0.08) 220px,
-    rgba(0, 0, 0, 0.52) 520px,
-    #000 760px,
-    #000 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0) 220px,
-    rgba(0, 0, 0, 0.52) 520px,
-    #000 760px,
-    #000 100%
-  );
+  bottom: calc(1232px - var(--prism-folder-bottom-y) - var(--prism-main-tail));
+  left: 0;
+  width: 375px;
+  height: 1533.5px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent),
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.08) 220px, rgba(0, 0, 0, 0.52) 520px, #000 760px, #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent),
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0) 220px, rgba(0, 0, 0, 0.52) 520px, #000 760px, #000 100%);
+  mask-composite: intersect;
 }
 
 .prism-rectangle-64 {
   position: absolute;
-  top: -360px;
-  left: calc(50% - 226px);
-  width: 452px;
+  bottom: calc(1232px - var(--prism-folder-bottom-y) - var(--prism-shade-tail));
+  left: 0;
+  width: 375px;
   height: 1525px;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0.08) 220px,
-    rgba(0, 0, 0, 0.52) 520px,
-    #000 760px,
-    #000 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0, 0, 0, 0.08) 220px,
-    rgba(0, 0, 0, 0.52) 520px,
-    #000 760px,
-    #000 100%
-  );
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent),
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.08) 220px, rgba(0, 0, 0, 0.52) 520px, #000 760px, #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent),
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.08) 220px, rgba(0, 0, 0, 0.52) 520px, #000 760px, #000 100%);
+  mask-composite: intersect;
 }
 
 @media (min-width: 744px) {
