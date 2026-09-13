@@ -18,8 +18,16 @@ export default function ProductCard({
   collectable = true,
   collectMoveX = 0,
   collectMoveY = 0,
+  collectTabletMoveX,
+  collectTabletMoveY,
+  collectDesktopMoveX,
+  collectDesktopMoveY,
   collectFinalOpacity = 0.46,
   collectFinalScale = 0.52,
+  collectTabletFinalOpacity,
+  collectTabletFinalScale,
+  collectDesktopFinalOpacity,
+  collectDesktopFinalScale,
   eager = false,
 }) {
   const icon = action === 'heart' ? '/icons/live_area.svg' : '/icons/live_area-6.svg'
@@ -35,8 +43,18 @@ export default function ProductCard({
         'data-collect-card': true,
         'data-move-x': collectMoveX,
         'data-move-y': collectMoveY,
+        'data-move-x-tablet': collectTabletMoveX ?? collectMoveX,
+        'data-move-y-tablet': collectTabletMoveY ?? collectMoveY,
+        'data-move-x-desktop': collectDesktopMoveX ?? collectTabletMoveX ?? collectMoveX,
+        'data-move-y-desktop': collectDesktopMoveY ?? collectTabletMoveY ?? collectMoveY,
         'data-final-opacity': collectFinalOpacity,
         'data-final-scale': collectFinalScale,
+        'data-final-opacity-tablet': collectTabletFinalOpacity ?? collectFinalOpacity,
+        'data-final-scale-tablet': collectTabletFinalScale ?? collectFinalScale,
+        'data-final-opacity-desktop':
+          collectDesktopFinalOpacity ?? collectTabletFinalOpacity ?? collectFinalOpacity,
+        'data-final-scale-desktop':
+          collectDesktopFinalScale ?? collectTabletFinalScale ?? collectFinalScale,
       }
     : {}
 

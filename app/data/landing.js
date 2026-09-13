@@ -136,29 +136,84 @@ export const PRISM_PRODUCTS = [
 
 export const COLLECTED_PRODUCT_STATES = {
   '/images/items/random/optimized/random_2.webp': {
-    left: 94,
-    top: 891,
+    left: 130,
+    top: 930,
     opacity: 0.72,
+    scale: 0.7,
+    tablet: {
+      left: 126,
+      top: 926,
+      scale: 0.76,
+    },
+    desktop: {
+      left: 118,
+      top: 918,
+      scale: 0.74,
+    },
   },
   '/images/items/folder-items/optimized/image_bagandsuite.webp': {
-    left: 187,
-    top: 948,
+    left: 183,
+    top: 952,
     opacity: 0.58,
+    scale: 0.62,
+    tablet: {
+      left: 184,
+      top: 948,
+      scale: 0.68,
+    },
+    desktop: {
+      left: 174,
+      top: 944,
+      scale: 0.64,
+    },
   },
   '/images/items/folder-items/optimized/image 362.webp': {
-    left: 68,
-    top: 978,
+    left: 112,
+    top: 986,
     opacity: 0.54,
+    scale: 0.68,
+    tablet: {
+      left: 106,
+      top: 982,
+      scale: 0.74,
+    },
+    desktop: {
+      left: 96,
+      top: 972,
+      scale: 0.7,
+    },
   },
   '/images/items/folder-items/optimized/image 1666.webp': {
-    left: 184,
-    top: 919,
+    left: 185,
+    top: 922,
     opacity: 0.62,
+    scale: 0.68,
+    tablet: {
+      left: 184,
+      top: 918,
+      scale: 0.74,
+    },
+    desktop: {
+      left: 174,
+      top: 914,
+      scale: 0.7,
+    },
   },
   '/images/items/folder-items/optimized/image_monstertshirts.webp': {
-    left: 100,
-    top: 946,
+    left: 132,
+    top: 950,
     opacity: 0.68,
+    scale: 0.68,
+    tablet: {
+      left: 126,
+      top: 946,
+      scale: 0.74,
+    },
+    desktop: {
+      left: 116,
+      top: 940,
+      scale: 0.7,
+    },
   },
 }
 

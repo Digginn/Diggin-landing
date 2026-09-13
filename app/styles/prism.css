@@ -81,7 +81,7 @@
   z-index: 10;
   overflow: visible;
   pointer-events: none;
-  --prism-folder-bottom-y: calc(871px + var(--prism-folder-height, 210px));
+  --prism-folder-bottom-y: 1072px;
   --prism-side-tail: 48.5px;
   --prism-main-tail: 71px;
   --prism-shade-tail: 47px;
@@ -155,6 +155,7 @@
     --prism-folder-left: 60.833px;
     --prism-folder-width: 253.333px;
     --prism-folder-height: 193.333px;
+    --prism-folder-bottom-y: calc(871px + var(--prism-folder-height));
     --prism-folder-start-x: 0px;
     --prism-folder-start-y: 0px;
     --prism-folder-start-scale-x: 1;

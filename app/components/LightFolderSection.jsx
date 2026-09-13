@@ -4,11 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import ProductCard from '@/app/components/ProductCard'
 import PrismLight from '@/app/components/PrismLight'
-import {
-  COLLECTED_PRODUCT_STATES,
-  PRISM_PRODUCTS,
-  RANDOM_POOL,
-} from '@/app/data/landing'
+import { COLLECTED_PRODUCT_STATES, PRISM_PRODUCTS, RANDOM_POOL } from '@/app/data/landing'
 
 function getPrismScale() {
   if (typeof window === 'undefined') return 1
@@ -35,6 +31,26 @@ function getFolderTransform(collectEase) {
   }
 }
 
+function getCollectVariant() {
+  if (typeof window === 'undefined') return 'mobile'
+  if (window.innerWidth >= 1280) return 'desktop'
+  if (window.innerWidth >= 744) return 'tablet'
+  return 'mobile'
+}
+
+function getResponsiveCollectedState(collectedState, variant) {
+  if (!collectedState) return null
+  return {
+    ...collectedState,
+    ...(collectedState[variant] ?? {}),
+  }
+}
+
+function numberFromDataset(value, fallback = 0) {
+  const parsed = Number(value)
+  return Number.isFinite(parsed) ? parsed : fallback
+}
+
 const FOLDER_STORED_PRODUCTS_BASE = [
   {
     src: '/images/items/random/optimized/random_2.webp',
@@ -59,15 +75,15 @@ const FOLDER_STORED_PRODUCTS_BASE = [
   },
   {
     src: '/images/items/folder-items/optimized/image_bagandsuite.webp',
-    left: 137,
-    top: 77,
+    left: 130,
+    top: 70,
     width: 120,
     height: 121.1,
   },
   {
     src: '/images/items/folder-items/optimized/image 362.webp',
-    left: 18,
-    top: 107,
+    left: 20,
+    top: 102,
     width: 83.2,
     height: 84,
   },
@@ -97,15 +113,15 @@ const FOLDER_STORED_PRODUCTS_DESKTOP = [
   },
   {
     src: '/images/items/folder-items/optimized/image_bagandsuite.webp',
-    left: 127.5,
-    top: 65,
+    left: 116,
+    top: 60,
     width: 120,
-    height: 121.1,
+    height: 116,
   },
   {
     src: '/images/items/folder-items/optimized/image 362.webp',
-    left: 8.4,
-    top: 95,
+    left: 16,
+    top: 90,
     width: 83.2,
     height: 84,
   },
@@ -149,14 +165,55 @@ export default function LightFolderSection() {
           sectionRef.current?.querySelectorAll('[data-collect-card]') ?? [],
         ).map((card) => ({
           card,
-          moveX: Number(card.dataset.moveX) || 0,
-          moveY: Number(card.dataset.moveY) || 0,
-          finalOpacity: Number(card.dataset.finalOpacity) || 0,
-          finalScale: Number(card.dataset.finalScale) || 1,
+          mobile: {
+            moveX: numberFromDataset(card.dataset.moveX),
+            moveY: numberFromDataset(card.dataset.moveY),
+            finalOpacity: numberFromDataset(card.dataset.finalOpacity),
+            finalScale: numberFromDataset(card.dataset.finalScale, 1),
+          },
+          tablet: {
+            moveX: numberFromDataset(
+              card.dataset.moveXTablet,
+              numberFromDataset(card.dataset.moveX),
+            ),
+            moveY: numberFromDataset(
+              card.dataset.moveYTablet,
+              numberFromDataset(card.dataset.moveY),
+            ),
+            finalOpacity: numberFromDataset(
+              card.dataset.finalOpacityTablet,
+              numberFromDataset(card.dataset.finalOpacity),
+            ),
+            finalScale: numberFromDataset(
+              card.dataset.finalScaleTablet,
+              numberFromDataset(card.dataset.finalScale, 1),
+            ),
+          },
+          desktop: {
+            moveX: numberFromDataset(
+              card.dataset.moveXDesktop,
+              numberFromDataset(card.dataset.moveX),
+            ),
+            moveY: numberFromDataset(
+              card.dataset.moveYDesktop,
+              numberFromDataset(card.dataset.moveY),
+            ),
+            finalOpacity: numberFromDataset(
+              card.dataset.finalOpacityDesktop,
+              numberFromDataset(card.dataset.finalOpacity),
+            ),
+            finalScale: numberFromDataset(
+              card.dataset.finalScaleDesktop,
+              numberFromDataset(card.dataset.finalScale, 1),
+            ),
+          },
         }))
       }
 
-      productCardsRef.current.forEach(({ card, moveX, moveY, finalOpacity, finalScale }) => {
+      const variant = getCollectVariant()
+
+      productCardsRef.current.forEach(({ card, mobile, tablet, desktop }) => {
+        const { moveX, moveY, finalOpacity, finalScale } = { mobile, tablet, desktop }[variant]
         const opacity = 1 + (finalOpacity - 1) * collectEase
         const scale = 1 + (finalScale - 1) * collectEase
 
@@ -295,24 +352,45 @@ export default function LightFolderSection() {
             const collectedState = COLLECTED_PRODUCT_STATES[item.src]
             const targetOffsetX = ((index % 5) - 2) * 3
             const targetOffsetY = (index % 4) * 3
-            const collectTarget = collectedState
-              ? {
-                  x: collectedState.left + cardWidth / 2,
-                  y: collectedState.top + cardHeight / 2,
-                }
-              : {
-                  x: folderTarget.x + targetOffsetX,
-                  y: folderTarget.y + targetOffsetY,
-                }
+            const getCollectTarget = (state) =>
+              state
+                ? {
+                    x: state.left + cardWidth / 2,
+                    y: state.top + cardHeight / 2,
+                  }
+                : {
+                    x: folderTarget.x + targetOffsetX,
+                    y: folderTarget.y + targetOffsetY,
+                  }
+            const mobileState = getResponsiveCollectedState(collectedState, 'mobile')
+            const tabletState = getResponsiveCollectedState(collectedState, 'tablet')
+            const desktopState = getResponsiveCollectedState(collectedState, 'desktop')
+            const mobileTarget = getCollectTarget(mobileState)
+            const tabletTarget = getCollectTarget(tabletState)
+            const desktopTarget = getCollectTarget(desktopState)
+            const originX = item.left + cardWidth / 2
+            const originY = item.top + cardHeight / 2
 
             return (
               <ProductCard
                 key={index}
                 {...item}
-                collectMoveX={collectTarget.x - (item.left + cardWidth / 2)}
-                collectMoveY={collectTarget.y - (item.top + cardHeight / 2)}
-                collectFinalOpacity={collectedState?.opacity ?? 0}
-                collectFinalScale={collectedState ? 1 : 0.36}
+                collectMoveX={mobileTarget.x - originX}
+                collectMoveY={mobileTarget.y - originY}
+                collectTabletMoveX={tabletTarget.x - originX}
+                collectTabletMoveY={tabletTarget.y - originY}
+                collectDesktopMoveX={desktopTarget.x - originX}
+                collectDesktopMoveY={desktopTarget.y - originY}
+                collectFinalOpacity={mobileState?.opacity ?? 0}
+                collectFinalScale={mobileState?.scale ?? 0.36}
+                collectTabletFinalOpacity={tabletState?.opacity ?? mobileState?.opacity ?? 0}
+                collectTabletFinalScale={tabletState?.scale ?? mobileState?.scale ?? 0.36}
+                collectDesktopFinalOpacity={
+                  desktopState?.opacity ?? tabletState?.opacity ?? mobileState?.opacity ?? 0
+                }
+                collectDesktopFinalScale={
+                  desktopState?.scale ?? tabletState?.scale ?? mobileState?.scale ?? 0.36
+                }
                 eager
               />
             )
