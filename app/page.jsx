@@ -50,7 +50,7 @@ export default function Home() {
         <div className='landing-content relative z-30 flex flex-col items-center gap-20 px-8 pb-[129px]'>
           <div className='landing-headline flex flex-col items-center gap-[8px] text-center '>
             <div className='flex flex-col items-center'>
-              <p className='text-h2 text-gray-400'>그 때 내가 저장한</p>
+              <p className='text-h2 text-gray-400'>그 때 내가 찜해둔</p>
               <p className='text-h1 text-white'>그 지갑 어디에 있지?</p>
             </div>
             <p className='text-s1 text-gray-400'>
@@ -84,6 +84,12 @@ export default function Home() {
             </div>
 
             <LaunchNotificationForm />
+
+            <p className='flex h-[81px] w-[329px] items-center justify-center rounded bg-[#343434] text-center text-[14px] font-semibold leading-[24px] text-white min-[744px]:h-[121.5px] min-[744px]:w-[493.5px] min-[744px]:rounded-[6px] min-[744px]:text-[21px] min-[744px]:leading-[36px]'>
+              * 26년 9월 내로 iOS 앱이 먼저 출시돼요.
+              <br />
+              안드로이드 출시도 함께 알려드릴게요!
+            </p>
           </div>
 
           <BrandLoopSection />

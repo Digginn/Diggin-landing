@@ -7,8 +7,8 @@ export default function BrandLoopSection() {
       <div className='flex flex-col items-center gap-[10px] text-center min-[744px]:gap-[15px] min-[1280px]:gap-5'>
         <p className='text-s1 text-gray-400'>여러 앱을 돌아다니지 마세요.</p>
         <div className='text-h4 text-gray-50 leading-[1.2]'>
-          <p>당신이 디깅한 아이템은</p>
-          <p>여기에 모입니다.</p>
+          <p>당신이 저장한 아이템은</p>
+          <p>디깅에 모입니다.</p>
         </div>
       </div>
       <div className='brand-loop -mx-8 w-[calc(100%+64px)] overflow-hidden min-[744px]:-mx-12 min-[744px]:w-[calc(100%+96px)] min-[1280px]:-mx-16 min-[1280px]:w-[calc(100%+128px)]'>
