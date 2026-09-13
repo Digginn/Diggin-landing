@@ -19,7 +19,6 @@ const AGREEMENT_VERSION = '2026-09-12'
 
 function getResponsiveMode() {
   if (typeof window === 'undefined') return { inputSize: 's' }
-  if (window.innerWidth >= 1280) return { inputSize: 'l' }
   if (window.innerWidth >= 744) return { inputSize: 'm' }
   return { inputSize: 's' }
 }
@@ -113,7 +112,7 @@ export default function LaunchNotificationForm() {
 
   return (
     <>
-      <div className='flex w-full flex-col items-center gap-[7px] min-[744px]:gap-[10.5px] min-[1280px]:gap-3.5'>
+      <div className='flex w-full flex-col items-center gap-[7px] min-[744px]:gap-[10.5px] min-[1280px]:gap-[10.5px]'>
         <Input
           size={responsiveMode.inputSize}
           value={phone}
@@ -125,42 +124,38 @@ export default function LaunchNotificationForm() {
           placeholder='010-XXXX-XXXX.digging'
         />
         {agreementError ? (
-          <p className='w-[324px] px-5 text-[12px] font-medium leading-[1.3] tracking-[0.24px] text-[#ff383c] min-[744px]:w-[486px] min-[744px]:px-[30px] min-[744px]:text-[18px] min-[744px]:tracking-[0.36px] min-[1280px]:w-[648px] min-[1280px]:px-10 min-[1280px]:text-[24px] min-[1280px]:tracking-[0.48px]'>
+          <p className='w-[324px] px-5 text-[12px] font-medium leading-[1.3] tracking-[0.24px] text-[#ff383c] min-[744px]:w-[486px] min-[744px]:px-[30px] min-[744px]:text-[18px] min-[744px]:tracking-[0.36px] min-[1280px]:w-[486px] min-[1280px]:px-[30px] min-[1280px]:text-[18px] min-[1280px]:tracking-[0.36px]'>
             {agreementError}
           </p>
         ) : null}
-        <div className='flex w-[355px] items-center gap-0.5 min-[744px]:w-[532.5px] min-[744px]:gap-[3px] min-[1280px]:w-[710px] min-[1280px]:gap-1'>
+        <div className='flex w-[355px] items-center gap-0.5 min-[744px]:w-[532.5px] min-[744px]:gap-[3px] min-[1280px]:w-[532.5px] min-[1280px]:gap-[3px]'>
           <button
             type='button'
             onBlur={handleAgreementBlur}
             onClick={handleAgreementToggle}
-            className='flex size-12 shrink-0 cursor-pointer items-center justify-center min-[744px]:size-[72px] min-[1280px]:size-24'
+            className='flex size-12 shrink-0 cursor-pointer items-center justify-center min-[744px]:size-[72px] min-[1280px]:size-[72px]'
           >
             <Image
               src={agreed ? '/icons/live_area-3.svg' : '/icons/live_area-7.svg'}
               alt={agreed ? '동의' : '미동의'}
-              width={
-                responsiveMode.inputSize === 'l' ? 36 : responsiveMode.inputSize === 'm' ? 27 : 18
-              }
-              height={
-                responsiveMode.inputSize === 'l' ? 36 : responsiveMode.inputSize === 'm' ? 27 : 18
-              }
+              width={responsiveMode.inputSize === 'm' ? 27 : 18}
+              height={responsiveMode.inputSize === 'm' ? 27 : 18}
             />
           </button>
           <button
             type='button'
             onBlur={handleAgreementBlur}
             onClick={handleAgreementToggle}
-            className='text-b3 cursor-pointer whitespace-nowrap text-gray-300 min-[744px]:text-[24px] min-[744px]:tracking-[-0.48px] min-[1280px]:text-[32px] min-[1280px]:tracking-[-0.64px]'
+            className='text-b3 cursor-pointer whitespace-nowrap text-gray-300 min-[744px]:text-[24px] min-[744px]:tracking-[-0.48px] min-[1280px]:text-[24px] min-[1280px]:tracking-[-0.48px]'
           >
             개인정보 이용 동의하고 출시 알림 받기
           </button>
           <button
             type='button'
             onClick={() => setIsPrivacyModalOpen(true)}
-            className='flex size-12 shrink-0 cursor-pointer items-center justify-center min-[744px]:size-[72px] min-[1280px]:size-24'
+            className='flex size-12 shrink-0 cursor-pointer items-center justify-center min-[744px]:size-[72px] min-[1280px]:size-[72px]'
           >
-            <span className='text-[16px] font-medium leading-[1.5] tracking-[-0.32px] text-gray-500 underline min-[744px]:text-[24px] min-[744px]:tracking-[-0.48px] min-[1280px]:text-[32px] min-[1280px]:tracking-[-0.64px]'>
+            <span className='text-[16px] font-medium leading-[1.5] tracking-[-0.32px] text-gray-500 underline min-[744px]:text-[24px] min-[744px]:tracking-[-0.48px] min-[1280px]:text-[24px] min-[1280px]:tracking-[-0.48px]'>
               자세히
             </span>
           </button>

@@ -11,8 +11,7 @@
 }
 
 .landing-headline {
-  gap: calc(26px * var(--landing-ui-scale));
-  padding-top: calc(26px * var(--landing-ui-scale));
+  gap: 8px;
 }
 
 .landing-content .text-h1,
@@ -74,6 +73,14 @@
     gap: 80px;
   }
 
+  .landing-headline {
+    gap: 12px;
+  }
+
+  .landing-content .text-s1 {
+    font-size: 22px;
+  }
+
   .survey-kicker {
     font-size: 18px;
   }
@@ -90,7 +97,7 @@
 
 @media (min-width: 1280px) {
   .landing-page {
-    --landing-ui-scale: 2;
+    --landing-ui-scale: 1.5;
     --prism-stage-scale: 2.25;
   }
 
@@ -99,7 +106,11 @@
   }
 
   .landing-content {
-    gap: 120px;
+    gap: 80px;
+  }
+
+  .landing-headline {
+    gap: 12px;
   }
 
   .survey-kicker {
