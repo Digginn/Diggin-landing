@@ -59,19 +59,19 @@
 @keyframes folder-panel-glow {
   0%,
   100% {
-    filter: drop-shadow(7px -8px 12px rgba(0, 98, 255, 0.82))
-      drop-shadow(-3px -2px 7px rgba(225, 255, 0, 0.64))
-      drop-shadow(0 5px 10px rgba(255, 56, 60, 0.66));
+    filter: drop-shadow(6px 0px 12px rgba(0, 98, 255, 0.82))
+      drop-shadow(-3px 5px 7px rgba(225, 255, 0, 0.64))
+      drop-shadow(-3px -5px 10px rgba(255, 56, 60, 0.66));
   }
   33% {
-    filter: drop-shadow(3px 7px 12px rgba(0, 98, 255, 0.82))
-      drop-shadow(5px -4px 7px rgba(225, 255, 0, 0.64))
-      drop-shadow(-5px 2px 10px rgba(255, 56, 60, 0.66));
+    filter: drop-shadow(-3px 5px 12px rgba(0, 98, 255, 0.82))
+      drop-shadow(-3px -5px 7px rgba(225, 255, 0, 0.64))
+      drop-shadow(6px 0px 10px rgba(255, 56, 60, 0.66));
   }
   66% {
-    filter: drop-shadow(-7px 1px 12px rgba(0, 98, 255, 0.82))
-      drop-shadow(2px 5px 7px rgba(225, 255, 0, 0.64))
-      drop-shadow(5px -2px 10px rgba(255, 56, 60, 0.66));
+    filter: drop-shadow(-3px -5px 12px rgba(0, 98, 255, 0.82))
+      drop-shadow(6px 0px 7px rgba(225, 255, 0, 0.64))
+      drop-shadow(-3px 5px 10px rgba(255, 56, 60, 0.66));
   }
 }
 
