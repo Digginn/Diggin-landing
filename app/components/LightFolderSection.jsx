@@ -208,7 +208,12 @@ export default function LightFolderSection() {
         }
       }
 
-      const collectEase = 1 - (1 - nextProgress) ** 3
+      const cardProgress = Math.min(1, Math.max(0, nextProgress / 0.6))
+      const collectEase = 1 - (1 - cardProgress) ** 3
+
+      const folderGrowProgress = Math.min(1, Math.max(0, (nextProgress - 0.6) / 0.4))
+      const folderGrowEase = 1 - (1 - folderGrowProgress) ** 3
+
       const closeProgress = Math.min(1, Math.max(0, (nextProgress - 0.88) / 0.12))
       const closeEase = 1 - (1 - closeProgress) ** 3
       const folderTextProgress = Math.min(1, Math.max(0, (nextProgress - 0.985) / 0.015))
@@ -244,7 +249,7 @@ export default function LightFolderSection() {
         nextProgress > 0.96 ? 'running' : 'paused',
       )
 
-      updateFolder(collectEase)
+      updateFolder(folderGrowEase)
       updateProductCards(collectEase)
     }
 
