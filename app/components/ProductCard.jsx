@@ -37,6 +37,7 @@ export default function ProductCard({
   const imageHeight = imageBox?.height ?? cardHeight - padding * 2
   const imageLeft = imageBox?.x ?? (cardWidth - imageWidth) / 2
   const imageTop = imageBox?.y ?? (cardHeight - imageHeight) / 2
+  const responsiveImageSizes = `(min-width: 1280px) ${Math.ceil(imageWidth * 2.25)}px, (min-width: 744px) ${Math.ceil(imageWidth * 1.5)}px, ${Math.ceil(imageWidth)}px`
   const resolvedActionSize = actionSize ?? Math.round(Math.min(cardWidth, cardHeight) * 0.26)
   const collectProps = collectable
     ? {
@@ -93,7 +94,14 @@ export default function ProductCard({
             style={crop}
           />
         ) : (
-          <Image src={src} alt='' fill sizes={`${imageWidth}px`} className='object-contain' loading={eager ? 'eager' : 'lazy'} />
+          <Image
+            src={src}
+            alt=''
+            fill
+            sizes={responsiveImageSizes}
+            className='object-contain'
+            loading={eager ? 'eager' : 'lazy'}
+          />
         )}
       </div>
       {action ? (

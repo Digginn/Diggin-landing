@@ -121,7 +121,7 @@ export default function LaunchNotificationForm() {
           onBlur={handlePhoneBlur}
           error={phoneError}
           disabled={!canTrySubmit}
-          placeholder='010-XXXX-XXXX.digging'
+          placeholder='010-XXXX-XXXX.diggin'
         />
         {agreementError ? (
           <p className='w-[324px] px-5 text-[12px] font-medium leading-[1.3] tracking-[0.24px] text-[#ff383c] min-[744px]:w-[486px] min-[744px]:px-[30px] min-[744px]:text-[18px] min-[744px]:tracking-[0.36px] min-[1280px]:w-[486px] min-[1280px]:px-[30px] min-[1280px]:text-[18px] min-[1280px]:tracking-[0.36px]'>

@@ -41,7 +41,9 @@ export default function Home() {
           </div>
           <div
             className='pointer-events-none absolute inset-0'
-            style={{ background: 'linear-gradient(180deg, rgba(30, 30, 30, 0.20) 0%, #1E1E1E 100%)' }}
+            style={{
+              background: 'linear-gradient(180deg, rgba(30, 30, 30, 0.20) 0%, #1E1E1E 100%)',
+            }}
           />
         </div>
 
@@ -78,7 +80,7 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <p className='text-h5 text-white'>.digging</p>
+              <p className='text-h5 text-white'>.diggin</p>
             </div>
 
             <LaunchNotificationForm />
