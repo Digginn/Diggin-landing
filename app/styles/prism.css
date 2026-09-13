@@ -137,23 +137,10 @@
 .prism-side-light-soft-blur {
   opacity: 0.74;
   filter: blur(56.8px);
-  will-change: opacity;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 56.8%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 56.8%, transparent 100%);
 }
 
-.prism-side-light-strong-blur {
-  opacity: 0.42;
-  filter: blur(100px);
-  will-change: opacity;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    rgba(0, 0, 0, 0.7) 56.8%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.7) 56.8%, transparent 100%);
-}
 
 .prism-side-light-base {
   opacity: 0.9;
@@ -167,7 +154,6 @@
   width: 522.315px;
   height: 1533.4px;
   filter: blur(10px);
-  will-change: transform;
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0,
