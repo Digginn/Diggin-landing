@@ -342,7 +342,7 @@ export default function LightFolderSection() {
 
   return (
     <section ref={sectionRef} className='prism-section relative z-10 overflow-visible bg-gray-900'>
-      <div ref={stageRef} className='prism-stage z-30 mx-auto h-[1232px] w-[375px]'>
+      <div ref={stageRef} className='prism-stage z-30 ml-[calc(50%-187.5px)] h-[1232px] w-[375px]'>
         <PrismLight />
 
         <div className='absolute inset-x-0 top-0 z-20 h-[1080px]'>
