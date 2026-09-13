@@ -53,35 +53,35 @@ function numberFromDataset(value, fallback = 0) {
 
 const FOLDER_STORED_PRODUCTS_BASE = [
   {
-    src: '/images/items/random/optimized/random_2.webp',
+    src: '/images/items/random/random_2.png',
     left: 44,
     top: 20,
     width: 78,
     height: 79,
   },
   {
-    src: '/images/items/folder-items/optimized/image 1666.webp',
+    src: '/images/items/folder-items/image 1666.png',
     left: 134,
     top: 48,
     width: 83.7,
     height: 84.5,
   },
   {
-    src: '/images/items/folder-items/optimized/image_monstertshirts.webp',
+    src: '/images/items/folder-items/image_monstertshirts.png',
     left: 49.8,
     top: 74.7,
     width: 94.9,
     height: 95.8,
   },
   {
-    src: '/images/items/folder-items/optimized/image_bagandsuite.webp',
+    src: '/images/items/folder-items/image_bagandsuite.png',
     left: 130,
     top: 70,
     width: 120,
     height: 121.1,
   },
   {
-    src: '/images/items/folder-items/optimized/image 362.webp',
+    src: '/images/items/folder-items/image 362.png',
     left: 20,
     top: 102,
     width: 83.2,
@@ -91,35 +91,35 @@ const FOLDER_STORED_PRODUCTS_BASE = [
 
 const FOLDER_STORED_PRODUCTS_DESKTOP = [
   {
-    src: '/images/items/random/optimized/random_2.webp',
+    src: '/images/items/random/random_2.png',
     left: 34.4,
     top: 8,
     width: 78,
     height: 79,
   },
   {
-    src: '/images/items/folder-items/optimized/image 1666.webp',
+    src: '/images/items/folder-items/image 1666.png',
     left: 124.4,
     top: 36,
     width: 83.7,
     height: 84.5,
   },
   {
-    src: '/images/items/folder-items/optimized/image_monstertshirts.webp',
+    src: '/images/items/folder-items/image_monstertshirts.png',
     left: 40.2,
     top: 62.7,
     width: 94.9,
     height: 95.8,
   },
   {
-    src: '/images/items/folder-items/optimized/image_bagandsuite.webp',
+    src: '/images/items/folder-items/image_bagandsuite.png',
     left: 116,
     top: 60,
     width: 120,
     height: 116,
   },
   {
-    src: '/images/items/folder-items/optimized/image 362.webp',
+    src: '/images/items/folder-items/image 362.png',
     left: 16,
     top: 90,
     width: 83.2,

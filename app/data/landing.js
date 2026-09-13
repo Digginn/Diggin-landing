@@ -15,13 +15,13 @@ export const BRANDS = [
 
 export const PRISM_PRODUCTS = [
   {
-    src: '/images/items/folder-items/optimized/image_bagandsuite.webp',
+    src: '/images/items/folder-items/image_bagandsuite.png',
     left: -24,
     top: 0,
     size: 120,
   },
   {
-    src: '/images/items/random/optimized/random_2.webp',
+    src: '/images/items/random/random_2.png',
     left: 67,
     top: 82,
     size: 76,
@@ -30,7 +30,7 @@ export const PRISM_PRODUCTS = [
     actionTop: 66,
   },
   {
-    src: '/images/items/folder-items/optimized/image_blackhoodie.webp',
+    src: '/images/items/folder-items/image_blackhoodie.png',
     left: 160,
     top: 104,
     size: 88,
@@ -39,25 +39,25 @@ export const PRISM_PRODUCTS = [
     actionTop: 70,
   },
   {
-    src: '/images/items/folder-items/optimized/image 367.webp',
+    src: '/images/items/folder-items/image 367.png',
     left: 260,
     top: 49,
     size: 68,
   },
   {
-    src: '/images/items/random/optimized/random_6.webp',
+    src: '/images/items/random/random_6.png',
     left: 320,
     top: 98,
     size: 80,
   },
   {
-    src: '/images/items/folder-items/optimized/image 362.webp',
+    src: '/images/items/folder-items/image 362.png',
     left: 23,
     top: 171,
     size: 84,
   },
   {
-    src: '/images/items/folder-items/optimized/image 359.webp',
+    src: '/images/items/folder-items/image 359.png',
     left: 273.719,
     top: 180.717,
     size: 60,
@@ -66,25 +66,25 @@ export const PRISM_PRODUCTS = [
     actionTop: 50.283,
   },
   {
-    src: '/images/items/random/optimized/random_8.webp',
+    src: '/images/items/random/random_8.png',
     left: 259,
     top: 324,
     size: 96,
   },
   {
-    src: '/images/items/random/optimized/random_4.webp',
+    src: '/images/items/random/random_4.png',
     left: 53.859,
     top: 355,
     size: 92,
   },
   {
-    src: '/images/items/folder-items/optimized/image375.webp',
+    src: '/images/items/folder-items/image375.png',
     left: 166,
     top: 452,
     size: 68,
   },
   {
-    src: '/images/items/random/optimized/random_5.webp',
+    src: '/images/items/random/random_5.png',
     left: 46,
     top: 506,
     size: 96,
@@ -94,7 +94,7 @@ export const PRISM_PRODUCTS = [
     actionSize: 28,
   },
   {
-    src: '/images/items/random/optimized/random_7.webp',
+    src: '/images/items/random/random_7.png',
     left: 222,
     top: 564,
     size: 64,
@@ -103,31 +103,31 @@ export const PRISM_PRODUCTS = [
     actionTop: 54,
   },
   {
-    src: '/images/items/folder-items/optimized/image 372 (CD4개이미지대체).webp',
+    src: '/images/items/folder-items/image 372 (CD4개이미지대체).png',
     left: 206,
     top: 778,
     size: 52,
   },
   {
-    src: '/images/items/random/optimized/random_1.webp',
+    src: '/images/items/random/random_1.png',
     left: 115,
     top: 796,
     size: 68,
   },
   {
-    src: '/images/items/random/optimized/random_3.webp',
+    src: '/images/items/random/random_3.png',
     left: 148,
     top: 848,
     size: 52,
   },
   {
-    src: '/images/items/folder-items/optimized/image 1666.webp',
+    src: '/images/items/folder-items/image 1666.png',
     left: 189,
     top: 928,
     size: 84,
   },
   {
-    src: '/images/items/folder-items/optimized/image_monstertshirts.webp',
+    src: '/images/items/folder-items/image_monstertshirts.png',
     left: 104.785,
     top: 954.68,
     size: 95,
@@ -135,7 +135,7 @@ export const PRISM_PRODUCTS = [
 ]
 
 export const COLLECTED_PRODUCT_STATES = {
-  '/images/items/random/optimized/random_2.webp': {
+  '/images/items/random/random_2.png': {
     left: 130,
     top: 930,
     opacity: 0.72,
@@ -151,7 +151,7 @@ export const COLLECTED_PRODUCT_STATES = {
       scale: 0.74,
     },
   },
-  '/images/items/folder-items/optimized/image_bagandsuite.webp': {
+  '/images/items/folder-items/image_bagandsuite.png': {
     left: 183,
     top: 952,
     opacity: 0.58,
@@ -167,7 +167,7 @@ export const COLLECTED_PRODUCT_STATES = {
       scale: 0.64,
     },
   },
-  '/images/items/folder-items/optimized/image 362.webp': {
+  '/images/items/folder-items/image 362.png': {
     left: 112,
     top: 986,
     opacity: 0.54,
@@ -183,7 +183,7 @@ export const COLLECTED_PRODUCT_STATES = {
       scale: 0.7,
     },
   },
-  '/images/items/folder-items/optimized/image 1666.webp': {
+  '/images/items/folder-items/image 1666.png': {
     left: 185,
     top: 922,
     opacity: 0.62,
@@ -199,7 +199,7 @@ export const COLLECTED_PRODUCT_STATES = {
       scale: 0.7,
     },
   },
-  '/images/items/folder-items/optimized/image_monstertshirts.webp': {
+  '/images/items/folder-items/image_monstertshirts.png': {
     left: 132,
     top: 950,
     opacity: 0.68,
@@ -218,14 +218,14 @@ export const COLLECTED_PRODUCT_STATES = {
 }
 
 export const RANDOM_POOL = [
-  { src: '/images/items/random/optimized/random_1.webp', alt: '아이템' },
-  { src: '/images/items/random/optimized/random_2.webp', alt: '아이템' },
-  { src: '/images/items/random/optimized/random_3.webp', alt: '아이템' },
-  { src: '/images/items/random/optimized/random_4.webp', alt: '아이템' },
-  { src: '/images/items/random/optimized/random_5.webp', alt: '아이템' },
-  { src: '/images/items/random/optimized/random_6.webp', alt: '아이템' },
-  { src: '/images/items/random/optimized/random_7.webp', alt: '아이템' },
-  { src: '/images/items/random/optimized/random_8.webp', alt: '아이템' },
+  { src: '/images/items/random/random_1.png', alt: '아이템' },
+  { src: '/images/items/random/random_2.png', alt: '아이템' },
+  { src: '/images/items/random/random_3.png', alt: '아이템' },
+  { src: '/images/items/random/random_4.png', alt: '아이템' },
+  { src: '/images/items/random/random_5.png', alt: '아이템' },
+  { src: '/images/items/random/random_6.png', alt: '아이템' },
+  { src: '/images/items/random/random_7.png', alt: '아이템' },
+  { src: '/images/items/random/random_8.png', alt: '아이템' },
 ]
 
 export const ACTION_BUTTONS = [
