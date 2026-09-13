@@ -60,6 +60,7 @@ export default function Home() {
                   className='folder-panel-glow absolute rounded-[6px] bg-gradient-to-b from-[rgba(255,255,255,0.68)] to-[#848484] border-[0.5px] border-[rgba(255,255,255,0.32)]'
                   style={{
                     inset: '0 6.67%',
+                    animationPlayState: 'running',
                   }}
                 />
                 <div className='absolute inset-x-0 bottom-0' style={{ top: '25%' }}>
