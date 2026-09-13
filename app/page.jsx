@@ -38,6 +38,10 @@ export default function Home() {
             />
             <DesktopTopPlusMarkers />
           </div>
+          <div
+            className='pointer-events-none absolute inset-0'
+            style={{ background: 'linear-gradient(180deg, rgba(30, 30, 30, 0.20) 0%, #1E1E1E 100%)' }}
+          />
         </div>
 
         <div className='landing-content relative z-30 flex flex-col items-center gap-20 px-8 pb-[129px]'>
