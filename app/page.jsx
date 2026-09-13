@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import ActionButtonSection from '@/app/components/ActionButtonSection'
 import BrandLoopSection from '@/app/components/BrandLoopSection'
-import DesktopTopPlusMarkers from '@/app/components/DesktopTopPlusMarkers'
 import LaunchNotificationForm from '@/app/components/LaunchNotificationForm'
 import LightFolderSection from '@/app/components/LightFolderSection'
 import Footer from '@/app/components/Footer'
@@ -11,32 +10,34 @@ export default function Home() {
     <main className='min-h-screen overflow-x-clip bg-gray-900 font-sans'>
       <div className='landing-page mx-auto min-h-screen w-full overflow-visible bg-gray-900'>
         <div className='landing-top-visual relative h-[244px] overflow-hidden'>
-          <div className='absolute left-1/2 h-[300px] w-[442px] -translate-x-1/2 -top-8 min-[744px]:h-[358px] min-[744px]:w-[811px] min-[744px]:-top-[88px] min-[1280px]:h-[460px] min-[1280px]:w-[1300px] min-[1280px]:-top-44'>
+          <div className='absolute left-1/2 h-[288px] w-[450px] -translate-x-1/2 -top-5 min-[744px]:h-[358px] min-[744px]:w-[1280px] min-[744px]:-top-[88px] min-[1280px]:h-[460px] min-[1280px]:w-[1280px] min-[1280px]:-top-44'>
             <Image
               src='/images/landing/landing-top-mobile.svg'
               alt=''
-              width={442}
+              width={450}
               height={288}
               priority
               className='block min-[744px]:hidden'
+              style={{ width: '100%', height: 'auto' }}
             />
             <Image
               src='/images/landing/landing-top-tablit.svg'
               alt=''
-              width={811}
+              width={1280}
               height={358}
               priority
               className='hidden min-[744px]:block min-[1280px]:hidden'
+              style={{ width: '100%', height: 'auto' }}
             />
             <Image
               src='/images/landing/landing-top-desktop.svg'
               alt=''
-              width={1300}
+              width={1280}
               height={460}
               priority
               className='hidden min-[1280px]:block'
+              style={{ width: '100%', height: 'auto' }}
             />
-            <DesktopTopPlusMarkers />
           </div>
           <div
             className='pointer-events-none absolute inset-0'
