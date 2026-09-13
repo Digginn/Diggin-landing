@@ -134,12 +134,6 @@
   );
 }
 
-.prism-side-light-soft-blur {
-  opacity: 0.74;
-  filter: blur(56.8px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 56.8%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 56.8%, transparent 100%);
-}
 
 
 .prism-side-light-base {

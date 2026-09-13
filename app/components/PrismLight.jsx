@@ -200,7 +200,6 @@ export default function PrismLight() {
   return (
     <div className='prism-light-field' aria-hidden='true'>
       <PrismSideLayer idPrefix='prism-side-base' className='prism-side-light-base' />
-      <PrismSideLayer idPrefix='prism-side-soft-blur' className='prism-side-light-soft-blur' />
       <PrismMainLayers idPrefix='prism-main' />
     </div>
   )
