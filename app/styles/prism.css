@@ -53,7 +53,7 @@
 
 .folder-panel-glow {
   animation: folder-panel-glow 8s linear infinite;
-  animation-play-state: var(--folder-glow-play-state, running);
+  animation-play-state: var(--folder-glow-play-state, paused);
 }
 
 @keyframes folder-panel-glow {

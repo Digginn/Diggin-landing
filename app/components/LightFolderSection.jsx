@@ -253,9 +253,13 @@ export default function LightFolderSection() {
       frameId = window.requestAnimationFrame(updateProgress)
     }
 
+    let resizeTimer = 0
     const handleResize = () => {
-      cacheLayout()
-      requestUpdate()
+      window.clearTimeout(resizeTimer)
+      resizeTimer = window.setTimeout(() => {
+        cacheLayout()
+        requestUpdate()
+      }, 150)
     }
 
     cacheLayout()
@@ -266,6 +270,7 @@ export default function LightFolderSection() {
     return () => {
       if (frameId) window.cancelAnimationFrame(frameId)
       if (captionTimeoutRef.current) window.clearTimeout(captionTimeoutRef.current)
+      if (resizeTimer) window.clearTimeout(resizeTimer)
       window.removeEventListener('scroll', requestUpdate)
       window.removeEventListener('resize', handleResize)
     }
