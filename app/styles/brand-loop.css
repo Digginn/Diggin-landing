@@ -23,7 +23,7 @@
 
 .brand-loop-track {
   --brand-loop-distance: 672px;
-  animation: brand-loop-scroll 28s linear infinite;
+  animation: brand-loop-scroll 28s linear infinite reverse;
 }
 
 @keyframes brand-loop-scroll {
