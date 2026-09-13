@@ -8,6 +8,13 @@ import Footer from '@/app/components/Footer'
 export default function Home() {
   return (
     <main className='min-h-screen overflow-x-clip bg-gray-900 font-sans'>
+      <link
+        rel='preload'
+        as='image'
+        href='/images/landing/landing-top-mobile.svg'
+        media='(max-width: 743px)'
+        fetchPriority='high'
+      />
       <div className='landing-page mx-auto min-h-screen w-full overflow-visible bg-gray-900'>
         <div className='landing-top-visual relative h-[244px] overflow-hidden'>
           <div className='absolute left-1/2 h-[288px] w-[450px] -translate-x-1/2 -top-5 min-[744px]:h-[358px] min-[744px]:w-[1280px] min-[744px]:-top-[88px] min-[1280px]:h-[460px] min-[1280px]:w-[1280px] min-[1280px]:-top-44'>
@@ -16,7 +23,8 @@ export default function Home() {
               alt=''
               width={450}
               height={288}
-              priority
+              loading='eager'
+              fetchPriority='high'
               className='block min-[744px]:hidden'
               style={{ width: '100%', height: 'auto' }}
             />
@@ -25,7 +33,6 @@ export default function Home() {
               alt=''
               width={1280}
               height={358}
-              priority
               className='hidden min-[744px]:block min-[1280px]:hidden'
               style={{ width: '100%', height: 'auto' }}
             />
@@ -34,7 +41,6 @@ export default function Home() {
               alt=''
               width={1280}
               height={460}
-              priority
               className='hidden min-[1280px]:block'
               style={{ width: '100%', height: 'auto' }}
             />
