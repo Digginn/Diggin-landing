@@ -1,4 +1,5 @@
 .prism-section {
+  --prism-folder-bottom-y: 1072px;
   height: calc(1232px + 100vh);
 }
 
@@ -81,7 +82,6 @@
   z-index: 10;
   overflow: visible;
   pointer-events: none;
-  --prism-folder-bottom-y: 1072px;
   --prism-side-tail: 48.5px;
   --prism-main-tail: 71px;
   --prism-shade-tail: 47px;
@@ -110,7 +110,8 @@
   max-width: none;
   pointer-events: none;
   bottom: calc(1232px - var(--prism-folder-bottom-y) - var(--prism-side-tail));
-  left: 50%;
+  /* The rays' visual axis is 18px right of center in the 2x source image. */
+  left: calc(50% - 9px);
   width: 583px;
   height: 1153.5px;
   transform: translateX(-50%);
@@ -155,7 +156,8 @@
     --prism-folder-left: 60.833px;
     --prism-folder-width: 253.333px;
     --prism-folder-height: 193.333px;
-    --prism-folder-bottom-y: calc(871px + var(--prism-folder-height));
+    --prism-folder-back-height: 190px;
+    --prism-folder-bottom-y: calc(871px + var(--prism-folder-back-height));
     --prism-folder-start-x: 0px;
     --prism-folder-start-y: 0px;
     --prism-folder-start-scale-x: 1;
@@ -174,7 +176,7 @@
     left: 18px;
     top: 0;
     width: 217.333px;
-    height: 190px;
+    height: var(--prism-folder-back-height);
   }
 
   .prism-folder-open-top-desktop {
