@@ -246,19 +246,14 @@ export default function LightFolderSection() {
       const end = cachedEnd
       const nextProgress = Math.min(1, Math.max(0, (start - top) / (start - end)))
 
-      // freeze 끝나는 시점에 sticky → relative 전환 (snap 없이 자연 스크롤)
       const stageEl = stageRef.current
       if (stageEl) {
         const stickyCutoff = end + 1232 * prismScale
         if (nextProgress >= 1 && sectionBottom <= stickyCutoff) {
-          if (!naturalScrollRef.current) {
-            naturalScrollRef.current = true
-            stageEl.style.position = 'relative'
-            // sticky(top: end)와 시각적으로 동일한 위치를 relative로 유지
-            // relativeTop = end - sectionTop (section이 stage의 기준점이므로)
-            stageEl.style.top = `${end - top}px`
-          }
-        } else if (naturalScrollRef.current && sectionBottom > stickyCutoff + 4) {
+          naturalScrollRef.current = true
+          stageEl.style.position = 'relative'
+          stageEl.style.top = `${cachedSectionHeight - 1232 * prismScale}px`
+        } else if (naturalScrollRef.current) {
           naturalScrollRef.current = false
           stageEl.style.position = ''
           stageEl.style.top = ''
