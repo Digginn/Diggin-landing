@@ -4,6 +4,7 @@ import BrandLoopSection from '@/app/components/BrandLoopSection'
 import LaunchNotificationForm from '@/app/components/LaunchNotificationForm'
 import LightFolderSection from '@/app/components/LightFolderSection'
 import Footer from '@/app/components/Footer'
+import InstagramSection from '@/app/components/InstagramSection'
 
 export default function Home() {
   return (
@@ -103,6 +104,7 @@ export default function Home() {
         </div>
 
         <LightFolderSection />
+        <InstagramSection />
         <Footer />
       </div>
     </main>
