@@ -7,7 +7,7 @@ import Footer from '@/app/components/Footer'
 
 export default function Home() {
   return (
-    <main className='min-h-screen overflow-x-clip bg-gray-900 font-sans'>
+    <main className='min-h-screen overflow-clip bg-gray-900 font-sans'>
       <link
         rel='preload'
         as='image'
