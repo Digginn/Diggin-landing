@@ -39,7 +39,7 @@ export default function PreRegistrationCompleteModal({ open, onClose }) {
         <div className='success-modal-content'>
           <div className='success-modal-copy'>
             <div className='success-modal-title-group'>
-              <p className='success-modal-kicker'>쇼핑 아카이브 디깅의</p>
+              <p className='success-modal-kicker'>쇼핑 아카이브 디긴의</p>
               <h2 id='pre-registration-complete-title' className='success-modal-title'>
                 사전등록이 완료되었어요!
               </h2>

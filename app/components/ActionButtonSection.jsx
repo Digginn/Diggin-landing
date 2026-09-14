@@ -34,7 +34,7 @@ export default function ActionButtonSection() {
         <p className='text-s1 text-gray-400'>모든 상품을 모아드릴게요.</p>
         <div className='text-h4 text-gray-50 leading-[1.2]'>
           <p>내 취향이 너무 많아서 헷갈렸다면,</p>
-          <p>이제 디깅이 도와줄게요.</p>
+          <p>이제 디긴이 도와줄게요.</p>
         </div>
       </div>
       <div className='flex h-[30px] w-full max-w-[375px] items-center justify-center gap-[14px] overflow-visible px-0 min-[744px]:h-[45px] min-[744px]:max-w-[562.5px] min-[744px]:gap-[21px] min-[1280px]:h-[45px] min-[1280px]:max-w-[562.5px] min-[1280px]:gap-[21px]'>
