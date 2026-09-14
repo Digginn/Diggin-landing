@@ -3,6 +3,7 @@ import './styles/landing.css'
 import './styles/prism.css'
 import './styles/brand-loop.css'
 import './styles/modal.css'
+import './styles/input.css'
 
 const siteTitle = 'Diggin | 나만의 관심 상품 아카이빙 앱'
 const siteDescription = '여러 쇼핑몰에 흩어진 관심 상품을 한 곳에 모아두고, 필요할 때 다시 찾아보세요.'

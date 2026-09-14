@@ -1,0 +1,23 @@
+.phone-input {
+  --input-scale: 1;
+  --input-icon-size: 37px;
+  width: 100%;
+  max-width: calc(324px * var(--input-scale));
+}
+
+.phone-input[data-size='m'] {
+  --input-scale: 1.5;
+  --input-icon-size: 55px;
+}
+
+.phone-input[data-size='l'] {
+  --input-scale: 2;
+  --input-icon-size: 73px;
+}
+
+@media (min-width: 744px) {
+  .phone-input[data-size='responsive'] {
+    --input-scale: 1.5;
+    --input-icon-size: 55px;
+  }
+}

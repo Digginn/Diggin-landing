@@ -3,45 +3,6 @@
 import { useId, useState } from 'react'
 import Image from 'next/image'
 
-const SIZE = {
-  s: {
-    width: 324,
-    height: 60,
-    border: 1,
-    outerPl: 8,
-    innerPl: 12,
-    innerPr: 8,
-    fontSize: 18,
-    errorFontSize: 12,
-    arrowSize: 44,
-    iconSize: 37,
-  },
-  m: {
-    width: 486,
-    height: 90,
-    border: 1.5,
-    outerPl: 12,
-    innerPl: 18,
-    innerPr: 12,
-    fontSize: 27,
-    errorFontSize: 18,
-    arrowSize: 66,
-    iconSize: 55,
-  },
-  l: {
-    width: 648,
-    height: 120,
-    border: 2,
-    outerPl: 16,
-    innerPl: 24,
-    innerPr: 16,
-    fontSize: 36,
-    errorFontSize: 24,
-    arrowSize: 88,
-    iconSize: 73,
-  },
-}
-
 function formatPhone(raw) {
   const digits = raw.replace(/\D/g, '').slice(0, 11)
   if (digits.length <= 3) return digits
@@ -71,7 +32,6 @@ export default function Input({
 
   const generatedId = useId()
   const [focused, setFocused] = useState(false)
-  const cfg = SIZE[size] ?? SIZE.s
   const inputValue = String(value ?? '')
   const inputId = id ?? generatedId
   const errorId = `${inputId}-error`
@@ -94,12 +54,12 @@ export default function Input({
   }
 
   return (
-    <div style={{ width: '100%', maxWidth: cfg.width }}>
+    <div className='phone-input' data-size={size}>
       <div
         style={{
-          height: cfg.height,
-          border: `${cfg.border}px solid ${borderColor}`,
-          paddingLeft: cfg.outerPl,
+          height: 'calc(60px * var(--input-scale))',
+          border: `calc(1px * var(--input-scale)) solid ${borderColor}`,
+          paddingLeft: 'calc(8px * var(--input-scale))',
           borderRadius: 200,
           backgroundColor: 'rgba(255,255,255,0.3)',
           display: 'flex',
@@ -112,8 +72,8 @@ export default function Input({
             alignItems: 'center',
             justifyContent: 'space-between',
             width: '100%',
-            paddingLeft: cfg.innerPl,
-            paddingRight: cfg.innerPr,
+            paddingLeft: 'calc(12px * var(--input-scale))',
+            paddingRight: 'calc(8px * var(--input-scale))',
           }}
         >
           <input
@@ -131,7 +91,7 @@ export default function Input({
             style={{
               flex: 1,
               minWidth: 0,
-              fontSize: cfg.fontSize,
+              fontSize: 'calc(18px * var(--input-scale))',
               fontWeight: 400,
               lineHeight: 2.35,
               color: hasValue ? 'white' : 'rgba(255,255,255,0.2)',
@@ -144,8 +104,8 @@ export default function Input({
             disabled={!canSubmit}
             onClick={(e) => canSubmit && onSubmit?.(e)}
             style={{
-              width: cfg.arrowSize,
-              height: cfg.arrowSize,
+              width: 'calc(44px * var(--input-scale))',
+              height: 'calc(44px * var(--input-scale))',
               flexShrink: 0,
               cursor: canSubmit ? 'pointer' : 'default',
             }}
@@ -155,8 +115,9 @@ export default function Input({
             <Image
               src={canSubmit ? '/icons/arrow-circle-black.svg' : '/icons/arrow-circle-gray.svg'}
               alt=''
-              width={cfg.iconSize}
-              height={cfg.iconSize}
+              width={37}
+              height={37}
+              style={{ width: 'var(--input-icon-size)', height: 'var(--input-icon-size)' }}
             />
           </button>
         </div>
@@ -165,9 +126,9 @@ export default function Input({
         <p
           id={errorId}
           style={{
-            paddingLeft: cfg.outerPl + cfg.innerPl,
+            paddingLeft: 'calc(20px * var(--input-scale))',
             marginTop: 8,
-            fontSize: cfg.errorFontSize,
+            fontSize: 'calc(12px * var(--input-scale))',
             fontWeight: 500,
             lineHeight: 1.3,
             letterSpacing: '0.24px',

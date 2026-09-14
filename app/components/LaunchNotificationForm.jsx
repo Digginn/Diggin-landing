@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import Input from '@/app/components/Input'
 import PreRegistrationCompleteModal from '@/app/components/PreRegistrationCompleteModal'
@@ -17,12 +17,6 @@ function getPhoneError(value) {
 const AGREEMENT_ERROR = '개인정보 수집 및 이용 동의를 눌러 주세요.'
 const AGREEMENT_VERSION = '2026-09-12'
 
-function getResponsiveMode() {
-  if (typeof window === 'undefined') return { inputSize: 's' }
-  if (window.innerWidth >= 744) return { inputSize: 'm' }
-  return { inputSize: 's' }
-}
-
 export default function LaunchNotificationForm() {
   const [phone, setPhone] = useState('')
   const [phoneError, setPhoneError] = useState('')
@@ -33,18 +27,8 @@ export default function LaunchNotificationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false)
-  const [responsiveMode, setResponsiveMode] = useState({ inputSize: 's' })
   const isPhoneReady = getPhoneError(phone) === ''
   const canTrySubmit = isPhoneReady && !isSubmitting
-
-  useEffect(() => {
-    const updateMode = () => setResponsiveMode(getResponsiveMode())
-
-    updateMode()
-    window.addEventListener('resize', updateMode)
-
-    return () => window.removeEventListener('resize', updateMode)
-  }, [])
 
   const handlePhoneChange = (next) => {
     setPhone(next)
@@ -114,7 +98,7 @@ export default function LaunchNotificationForm() {
     <>
       <div className='flex w-full flex-col items-center gap-[7px] min-[744px]:gap-[10.5px] min-[1280px]:gap-[10.5px]'>
         <Input
-          size={responsiveMode.inputSize}
+          size='responsive'
           value={phone}
           onChange={handlePhoneChange}
           onSubmit={handleSubmit}
@@ -138,8 +122,9 @@ export default function LaunchNotificationForm() {
             <Image
               src={agreed ? '/icons/live_area-3.svg' : '/icons/live_area-7.svg'}
               alt={agreed ? '동의' : '미동의'}
-              width={responsiveMode.inputSize === 'm' ? 27 : 18}
-              height={responsiveMode.inputSize === 'm' ? 27 : 18}
+              width={18}
+              height={18}
+              className='size-[18px] min-[744px]:size-[27px]'
             />
           </button>
           <button
